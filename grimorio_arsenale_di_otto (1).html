@@ -1,0 +1,3693 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grimorio &amp; Arsenale di Otto — Compendio D&amp;D 5e</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Cinzel & Libre Baskerville (Stile Manuale D&D 5e / Homebrewery) + Inter per controlli UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parchment: {
+              bg: '#F7F1E1',
+              card: '#FCF9F2',
+              dark: '#EDE3C8',
+              border: '#C9AD6A',
+            },
+            crimson: {
+              dnd: '#58180D',
+              light: '#7E2414',
+              soft: '#F5E6E2',
+              border: '#B85A4A',
+            },
+            sage: {
+              dnd: '#E6ECE0',
+              border: '#8FA382',
+              dark: '#3D5233',
+            },
+            ink: {
+              dnd: '#231A14',
+              muted: '#5C4B3E',
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'Georgia', 'serif'],
+            baskerville: ['"Libre Baskerville"', 'Georgia', 'serif'],
+            ui: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ==========================================================================
+       STILE CLASSICO MANUALI D&D 5E / HOMEBREWERY
+       ========================================================================== */
+    :root {
+      --parchment-bg: #F7F1E1;
+      --parchment-card: #FCF9F2;
+      --gold-border: #C9AD6A;
+      --crimson-dnd: #58180D;
+      --sage-callout: #E6ECE0;
+      --ink-main: #231A14;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--parchment-bg);
+    }
+
+    body {
+      background-color: var(--parchment-bg);
+      background-image:
+        radial-gradient(ellipse at top left, rgba(201, 173, 106, 0.22) 0%, transparent 52%),
+        radial-gradient(ellipse at bottom right, rgba(88, 24, 13, 0.09) 0%, transparent 56%),
+        repeating-linear-gradient(
+          0deg,
+          rgba(139, 109, 64, 0.025) 0px,
+          rgba(139, 109, 64, 0.025) 1px,
+          transparent 1px,
+          transparent 4px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(139, 109, 64, 0.02) 0px,
+          rgba(139, 109, 64, 0.02) 1px,
+          transparent 1px,
+          transparent 5px
+        );
+      color: var(--ink-main);
+      font-family: 'Libre Baskerville', Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    /* Divisore affusolato rosso cremisi tipico degli statblock D&D 5e */
+    .dnd-taper {
+      height: 5px;
+      width: 100%;
+      background: linear-gradient(90deg, #58180D 0%, #922613 68%, rgba(201, 173, 106, 0.12) 100%);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      margin: 0.45rem 0;
+    }
+
+    /* Cornice statblock mostro/famiglio D&D */
+    .dnd-statblock-frame {
+      background-color: #FCF9F2;
+      background-image: linear-gradient(180deg, rgba(247, 241, 225, 0.6) 0%, rgba(252, 249, 242, 0.96) 100%);
+      border-top: 4px double #C9AD6A;
+      border-bottom: 4px double #C9AD6A;
+      border-left: 1px solid rgba(201, 173, 106, 0.65);
+      border-right: 1px solid rgba(201, 173, 106, 0.65);
+      box-shadow: 0 5px 18px rgba(35, 26, 20, 0.09);
+    }
+
+    /* Card standard stile Homebrewery */
+    .dnd-card {
+      background-color: #FCF9F2;
+      border: 1px solid #C9AD6A;
+      box-shadow: 0 2px 10px rgba(88, 24, 13, 0.07), inset 0 0 24px rgba(201, 173, 106, 0.14);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .dnd-card:hover {
+      border-color: #9E7E38;
+      box-shadow: 0 8px 22px rgba(88, 24, 13, 0.14), inset 0 0 26px rgba(201, 173, 106, 0.2);
+    }
+
+    /* Cornice illustrazione stile manuale */
+    .dnd-art-frame {
+      background: radial-gradient(circle at center, #FBF6E8 0%, #EFE2C4 72%, #DFCCA3 100%);
+      border: 2px solid #C9AD6A;
+      box-shadow: inset 0 0 18px rgba(88, 24, 13, 0.14), 0 3px 10px rgba(35, 26, 20, 0.1);
+    }
+
+    /* Box Callout Verde Salvia D&D 5e */
+    .dnd-callout-sage {
+      background-color: #E6ECE0;
+      border-top: 2px solid #8FA382;
+      border-bottom: 2px solid #8FA382;
+      border-left: 1px solid rgba(143, 163, 130, 0.55);
+      border-right: 1px solid rgba(143, 163, 130, 0.55);
+      box-shadow: inset 0 0 12px rgba(61, 82, 51, 0.05);
+    }
+
+    /* Box Callout Malus / Maledizione */
+    .dnd-callout-malus {
+      background-color: #F5E6E2;
+      border-top: 2px solid #B85A4A;
+      border-bottom: 2px solid #B85A4A;
+      border-left: 1px solid rgba(184, 90, 74, 0.45);
+      border-right: 1px solid rgba(184, 90, 74, 0.45);
+    }
+
+    /* Pillole dadi cliccabili inline */
+    .dice-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 0.78em;
+      line-height: 1.2;
+      padding: 0.08rem 0.42rem;
+      margin: 0 0.06rem;
+      border-radius: 0.38rem;
+      background-color: #F3E5D8;
+      color: #58180D;
+      border: 1px solid #C9AD6A;
+      box-shadow: 0 1px 2px rgba(88, 24, 13, 0.12);
+      cursor: pointer;
+      vertical-align: baseline;
+      transition: all 0.14s ease;
+    }
+
+    .dice-pill:hover {
+      background-color: #58180D;
+      color: #F7F1E1;
+      border-color: #58180D;
+      transform: translateY(-1px);
+    }
+
+    .dice-pill:active {
+      transform: scale(0.96);
+    }
+
+    /* Nascondi scrollbar orizzontale su barra pillole mobile mantenendo lo scroll touch */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Animazione freccia accordion */
+    .accordion-chevron {
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .accordion-open .accordion-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Scrollbar verticale */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EDE3C8;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #B89A58;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #58180D;
+    }
+
+    /* Animazione Modali */
+    @keyframes modalSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    .animate-modal {
+      animation: modalSlideUp 0.2s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-crimson-dnd selection:text-parchment-bg">
+
+  <!-- Input file nascosto globale per caricare immagini su qualsiasi scheda -->
+  <input id="cardImageInput" type="file" accept="image/*" class="hidden" />
+  <input id="jsonFileInput" type="file" accept=".json,application/json" class="hidden" />
+
+  <!-- ========================================================================
+       INTESTAZIONE PRINCIPALE (HERO COMPENDIO)
+       ======================================================================== -->
+  <header class="relative border-b-2 border-parchment-border bg-gradient-to-b from-[#EFE5CC] via-[#F7F1E1] to-[#F7F1E1] pt-4 pb-3.5 px-3 sm:px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3.5">
+      <div class="flex items-center gap-3.5 text-center md:text-left">
+        <!-- Stemma Arcano D20 -->
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-crimson-dnd border-2 border-parchment-border shadow-md flex items-center justify-center shrink-0">
+          <svg class="w-8 h-8 text-[#F7F1E1]" viewBox="0 0 64 64" fill="none">
+            <polygon points="32,4 58,19 58,45 32,60 6,45 6,19" stroke="#C9AD6A" stroke-width="3" fill="#421008"/>
+            <polygon points="32,12 49,42 15,42" stroke="#F7F1E1" stroke-width="2" fill="none"/>
+            <line x1="32" y1="4" x2="32" y2="12" stroke="#C9AD6A" stroke-width="2"/>
+            <line x1="58" y1="19" x2="49" y2="42" stroke="#C9AD6A" stroke-width="1.5"/>
+            <line x1="6" y1="19" x2="15" y2="42" stroke="#C9AD6A" stroke-width="1.5"/>
+            <circle cx="32" cy="32" r="3.5" fill="#C9AD6A"/>
+          </svg>
+        </div>
+        <div>
+          <p class="font-cinzel text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-crimson-light">
+            Compendio Arcano • Famiglio • Reliquie • Incantesimi
+          </p>
+          <h1 class="font-cinzel text-2xl sm:text-3xl md:text-4xl font-black tracking-wide text-crimson-dnd leading-tight">
+            Grimorio &amp; Arsenale di Otto
+          </h1>
+        </div>
+      </div>
+
+      <!-- Azioni Rapide di Sessione & Selettore Vista -->
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <!-- Toggle Vista Completa vs Vista Compatta -->
+        <div class="inline-flex rounded-xl bg-parchment-card border border-parchment-border p-0.5 shadow-sm font-ui text-xs">
+          <button
+            id="btnViewFull"
+            type="button"
+            class="px-3 py-2 rounded-lg font-bold transition bg-crimson-dnd text-[#F7F1E1]"
+            title="Mostra immediatamente tutti i testi completi senza aprire pop-up"
+          >
+            Vista Completa
+          </button>
+          <button
+            id="btnViewCompact"
+            type="button"
+            class="px-3 py-2 rounded-lg font-semibold transition text-ink-dnd hover:bg-parchment-dark"
+            title="Mostra schede compatte per scorrimento rapido"
+          >
+            Vista Compatta
+          </button>
+        </div>
+
+        <button
+          id="btnLongRest"
+          type="button"
+          class="font-ui text-xs font-semibold px-3.5 py-2.5 rounded-xl bg-sage-dnd hover:bg-[#d8e3ce] text-sage-dark border border-sage-border shadow-sm transition flex items-center gap-1.5"
+          title="Ripristina PF di Zucca-Spina e azzera gli usi giornalieri / riposo lungo"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <span>Riposo Lungo</span>
+        </button>
+
+        <span id="totalCountBadge" class="font-ui text-xs font-semibold px-3 py-2.5 rounded-xl bg-parchment-card border border-parchment-border text-ink-muted">
+          26 Voci
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       BARRA DI NAVIGAZIONE SUPERIORE FISSA (STICKY) + PILLOLE RAPIDE
+       ======================================================================== -->
+  <nav aria-label="Filtri e comandi del grimorio" class="sticky top-0 z-30 bg-[#EFE5CC]/95 backdrop-blur-md border-b-2 border-parchment-border shadow-md">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 pt-2.5 pb-2 space-y-2">
+      <!-- Riga 1: Ricerca, Tendina Categoria, Pulsanti Azione -->
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-2">
+        <div class="flex flex-col sm:flex-row flex-1 gap-2">
+          <!-- Campo Ricerca -->
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none text-crimson-dnd/70">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Cerca incantesimo, reliquia, danno (es. 4d10, veleno, CD 13)..."
+              class="w-full font-ui text-sm pl-9 pr-9 py-2 rounded-xl bg-parchment-card border border-parchment-border text-ink-dnd placeholder-ink-muted/70 focus:outline-none focus:ring-2 focus:ring-crimson-dnd/40 focus:border-crimson-dnd"
+            />
+            <button
+              id="clearSearchBtn"
+              type="button"
+              aria-label="Cancella ricerca"
+              class="hidden absolute inset-y-0 right-2.5 flex items-center text-ink-muted hover:text-crimson-dnd px-1.5 font-bold"
+            >
+              ✕
+            </button>
+          </div>
+
+          <!-- Menù a Tendina Categorie -->
+          <div class="relative sm:w-64">
+            <select
+              id="categorySelect"
+              aria-label="Filtra per categoria"
+              class="w-full appearance-none font-ui text-sm font-medium pl-3.5 pr-9 py-2 rounded-xl bg-parchment-card border border-parchment-border text-ink-dnd focus:outline-none focus:ring-2 focus:ring-crimson-dnd/40 focus:border-crimson-dnd cursor-pointer"
+            >
+              <option value="all">Tutte le Categorie</option>
+              <option value="creature">Famiglio &amp; Creature (Zucca-Spina)</option>
+              <option value="oggetti">Oggetti Magici</option>
+              <option value="trucchetti">Trucchetti</option>
+              <option value="suppliche">Suppliche Occulte</option>
+              <option value="incantesimi_suppliche">Incantesimi delle Suppliche</option>
+              <option value="incantesimi">Incantesimi</option>
+              <option value="incantesimi_sottoclasse">Incantesimi Sottoclasse</option>
+              <option value="talenti">Talenti</option>
+            </select>
+            <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-crimson-dnd">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Pulsanti Azione -->
+        <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2">
+          <!-- + Aggiungi Nuovo -->
+          <button
+            id="btnAddNew"
+            type="button"
+            class="flex-1 sm:flex-none font-ui text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-xl bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] border border-parchment-border shadow-sm transition flex items-center justify-center gap-1.5"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>+ Aggiungi</span>
+          </button>
+
+          <!-- Espandi / Comprimi Tutto -->
+          <button
+            id="btnToggleAll"
+            type="button"
+            class="font-ui text-xs font-medium px-3 py-2 rounded-xl bg-parchment-card hover:bg-parchment-dark text-ink-dnd border border-parchment-border transition flex items-center gap-1.5"
+          >
+            <svg class="w-4 h-4 text-crimson-dnd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/>
+            </svg>
+            <span id="toggleAllLabel">Comprimi Tutto</span>
+          </button>
+
+          <!-- Menù a Tendina Dati / Backup -->
+          <div class="relative">
+            <button
+              id="btnDataMenu"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              class="font-ui text-xs font-medium px-3 py-2 rounded-xl bg-parchment-card hover:bg-parchment-dark text-ink-dnd border border-parchment-border transition flex items-center gap-1.5"
+            >
+              <svg class="w-4 h-4 text-crimson-dnd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+              </svg>
+              <span>Dati</span>
+              <svg class="w-3.5 h-3.5 text-crimson-dnd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+
+            <!-- Dropdown Opzioni viewport-safe -->
+            <div
+              id="dataDropdown"
+              class="hidden absolute right-0 mt-2 w-60 max-w-[90vw] rounded-xl bg-parchment-card border-2 border-parchment-border shadow-2xl py-1.5 z-50 font-ui text-xs sm:text-sm"
+            >
+              <button
+                id="btnExportJson"
+                type="button"
+                class="w-full text-left px-4 py-2.5 hover:bg-parchment-dark text-ink-dnd flex items-center gap-2.5 transition"
+              >
+                <span class="text-crimson-dnd font-bold">↓</span>
+                <span>Scarica File JSON</span>
+              </button>
+              <button
+                id="btnCopyJson"
+                type="button"
+                class="w-full text-left px-4 py-2.5 hover:bg-parchment-dark text-ink-dnd flex items-center gap-2.5 transition"
+              >
+                <span class="text-crimson-dnd font-bold">⧉</span>
+                <span>Copia JSON negli Appunti</span>
+              </button>
+              <button
+                id="btnImportJson"
+                type="button"
+                class="w-full text-left px-4 py-2.5 hover:bg-parchment-dark text-ink-dnd flex items-center gap-2.5 transition"
+              >
+                <span class="text-crimson-dnd font-bold">↑</span>
+                <span>Importa da File JSON</span>
+              </button>
+              <button
+                id="btnPasteJsonModal"
+                type="button"
+                class="w-full text-left px-4 py-2.5 hover:bg-parchment-dark text-ink-dnd flex items-center gap-2.5 transition"
+              >
+                <span class="text-crimson-dnd font-bold">✎</span>
+                <span>Incolla Testo JSON</span>
+              </button>
+              <div class="my-1 border-t border-parchment-border/60"></div>
+              <button
+                id="btnResetAll"
+                type="button"
+                class="w-full text-left px-4 py-2.5 hover:bg-crimson-soft text-crimson-dnd font-semibold flex items-center gap-2.5 transition"
+              >
+                <span>↺</span>
+                <span>Ripristina Dati Originali</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Riga 2: Barra di Navigazione Rapida a Pillole (scorrimento orizzontale fluido su mobile) -->
+      <div id="quickNavPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5 font-ui text-xs">
+        <!-- Popolato dinamicamente via JS -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       CONTENUTO PRINCIPALE: SEZIONI ACCORDION PER CATEGORIA
+       ======================================================================== -->
+  <main id="mainContainer" class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-5 space-y-5">
+    <!-- Le sezioni vengono generate dinamicamente via JavaScript -->
+  </main>
+
+  <!-- Stato vuoto quando la ricerca non produce risultati -->
+  <div id="emptySearchState" class="hidden max-w-lg mx-auto my-12 px-4 text-center">
+    <div class="dnd-card rounded-2xl p-8">
+      <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-crimson-soft border border-crimson-border flex items-center justify-center text-crimson-dnd font-bold text-xl">
+        ✦
+      </div>
+      <h3 class="font-cinzel text-xl font-bold text-crimson-dnd mb-1">Nessuna voce trovata</h3>
+      <p class="text-sm text-ink-muted mb-4">Non ci sono incantesimi, reliquie o creature corrispondenti ai filtri selezionati.</p>
+      <button
+        id="btnResetFilters"
+        type="button"
+        class="font-ui text-sm font-semibold px-4 py-2.5 rounded-xl bg-crimson-dnd text-[#F7F1E1] hover:bg-crimson-light transition"
+      >
+        Mostra Tutto il Grimorio
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="border-t border-parchment-border bg-[#EFE5CC]/75 py-4 px-4 text-center text-xs text-ink-muted font-ui">
+    <p>Grimorio &amp; Arsenale di Otto • Clicca su qualsiasi dado (es. <span class="font-bold text-crimson-dnd">1d10</span>, <span class="font-bold text-crimson-dnd">4d10</span>) per tirarlo al volo • Salvataggio locale automatico</p>
+  </footer>
+
+  <!-- ========================================================================
+       FINESTRELLA POP-UP 1: SCHEDA DETTAGLIO ELEMENTO
+       ======================================================================== -->
+  <div
+    id="detailModalOverlay"
+    class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-[2px] flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="detailModalTitle"
+  >
+    <div
+      id="detailModalBox"
+      class="animate-modal w-full sm:max-w-3xl max-h-[92vh] sm:max-h-[88vh] flex flex-col rounded-t-2xl sm:rounded-2xl bg-parchment-card border-2 border-parchment-border shadow-2xl overflow-hidden"
+    >
+      <!-- Header Modale Sticky -->
+      <div class="flex items-start justify-between gap-3 px-4 sm:px-6 py-4 bg-gradient-to-r from-[#EFE5CC] via-[#F7F1E1] to-[#EFE5CC] border-b-2 border-parchment-border shrink-0">
+        <div class="min-w-0">
+          <div id="detailModalCategoryBadge" class="font-ui text-[11px] font-bold uppercase tracking-wider text-crimson-light mb-0.5"></div>
+          <h2 id="detailModalTitle" class="font-cinzel text-xl sm:text-2xl font-black text-crimson-dnd leading-snug break-words"></h2>
+          <p id="detailModalSubtitle" class="text-xs sm:text-sm italic text-ink-muted mt-0.5"></p>
+        </div>
+        <button
+          id="closeDetailModalBtn"
+          type="button"
+          aria-label="Chiudi scheda"
+          class="w-10 h-10 rounded-xl bg-parchment-card hover:bg-crimson-soft text-crimson-dnd border border-parchment-border flex items-center justify-center shrink-0 transition text-lg font-bold"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Corpo Scorrevole della Scheda -->
+      <div id="detailModalBody" class="p-4 sm:p-6 overflow-y-auto space-y-4 text-sm sm:text-base leading-relaxed">
+        <!-- Popolato dinamicamente -->
+      </div>
+
+      <!-- Footer Modale con Pulsanti Immagine / Modifica / Elimina / Chiudi -->
+      <div class="px-4 sm:px-6 py-3 bg-[#EFE5CC]/85 border-t border-parchment-border flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            id="modalUploadImgBtn"
+            type="button"
+            class="font-ui text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg bg-sage-dnd hover:bg-[#d8e3ce] text-sage-dark border border-sage-border transition flex items-center gap-1.5"
+          >
+            <span>🖼️ Carica Immagine</span>
+          </button>
+          <button
+            id="modalEditBtn"
+            type="button"
+            class="font-ui text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg bg-parchment-card hover:bg-parchment-dark text-ink-dnd border border-parchment-border transition flex items-center gap-1.5"
+          >
+            <span>✎ Modifica</span>
+          </button>
+          <button
+            id="modalDeleteBtn"
+            type="button"
+            class="font-ui text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg bg-crimson-soft hover:bg-[#ebd3cd] text-crimson-dnd border border-crimson-border transition flex items-center gap-1.5"
+          >
+            <span>🗑 Elimina</span>
+          </button>
+        </div>
+        <button
+          id="modalDoneBtn"
+          type="button"
+          class="font-ui text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] transition"
+        >
+          Chiudi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FINESTRELLA POP-UP 2: AGGIUNGI / MODIFICA ELEMENTO (FORM DINAMICO)
+       ======================================================================== -->
+  <div
+    id="formModalOverlay"
+    class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-[2px] flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="formModalTitle"
+  >
+    <div
+      class="animate-modal w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[88vh] flex flex-col rounded-t-2xl sm:rounded-2xl bg-parchment-card border-2 border-parchment-border shadow-2xl overflow-hidden"
+    >
+      <!-- Header Form -->
+      <div class="flex items-center justify-between px-4 sm:px-6 py-4 bg-gradient-to-r from-[#EFE5CC] via-[#F7F1E1] to-[#EFE5CC] border-b-2 border-parchment-border shrink-0">
+        <div>
+          <p class="font-ui text-[11px] font-bold uppercase tracking-wider text-crimson-light">Forgia del Grimorio</p>
+          <h2 id="formModalTitle" class="font-cinzel text-xl sm:text-2xl font-black text-crimson-dnd">Aggiungi Nuovo Elemento</h2>
+        </div>
+        <button
+          id="closeFormModalBtn"
+          type="button"
+          aria-label="Chiudi finestra"
+          class="w-10 h-10 rounded-xl bg-parchment-card hover:bg-crimson-soft text-crimson-dnd border border-parchment-border flex items-center justify-center transition text-lg font-bold"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Corpo Form Scorrevole -->
+      <form id="itemForm" class="p-4 sm:p-6 overflow-y-auto space-y-4 font-ui text-sm">
+        <input type="hidden" id="editItemId" value="" />
+        <input type="hidden" id="formCustomImageData" value="" />
+
+        <!-- Selezione Categoria -->
+        <div>
+          <label for="formCategory" class="block font-semibold text-crimson-dnd mb-1">Categoria *</label>
+          <select
+            id="formCategory"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-[#FCF9F2] border border-parchment-border text-ink-dnd font-medium focus:outline-none focus:ring-2 focus:ring-crimson-dnd/40"
+          >
+            <option value="creature">Famiglio &amp; Creature</option>
+            <option value="oggetti">Oggetti Magici</option>
+            <option value="trucchetti">Trucchetti</option>
+            <option value="suppliche">Suppliche Occulte</option>
+            <option value="incantesimi_suppliche">Incantesimi delle Suppliche</option>
+            <option value="incantesimi">Incantesimi</option>
+            <option value="incantesimi_sottoclasse">Incantesimi Sottoclasse</option>
+            <option value="talenti">Talenti</option>
+          </select>
+        </div>
+
+        <!-- Sezione Caricamento Immagine nel Form -->
+        <div class="p-3 rounded-xl bg-[#F3EAD3] border border-parchment-border flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div id="formImagePreviewBox" class="w-14 h-14 rounded-xl dnd-art-frame flex items-center justify-center overflow-hidden shrink-0 text-xs text-ink-muted">
+              Nessuna
+            </div>
+            <div>
+              <p class="font-semibold text-crimson-dnd text-xs sm:text-sm">Illustrazione / Immagine Scheda</p>
+              <p class="text-[11px] text-ink-muted">Carica un'immagine da PC o smartphone (ridimensionata automaticamente).</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button
+              id="btnFormPickImage"
+              type="button"
+              class="px-3 py-2 rounded-lg bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] text-xs font-semibold transition"
+            >
+              Scegli Immagine
+            </button>
+            <button
+              id="btnFormClearImage"
+              type="button"
+              class="hidden px-2.5 py-2 rounded-lg bg-crimson-soft text-crimson-dnd border border-crimson-border text-xs font-semibold transition"
+            >
+              Rimuovi
+            </button>
+          </div>
+        </div>
+
+        <!-- Campi Dinamici iniettati in base alla categoria -->
+        <div id="dynamicFormFields" class="space-y-4"></div>
+
+        <!-- Pulsanti Invio -->
+        <div class="pt-3 border-t border-parchment-border flex items-center justify-end gap-2.5">
+          <button
+            id="cancelFormBtn"
+            type="button"
+            class="px-4 py-2.5 rounded-xl bg-parchment-bg hover:bg-parchment-dark text-ink-dnd border border-parchment-border font-semibold transition"
+          >
+            Annulla
+          </button>
+          <button
+            type="submit"
+            class="px-5 py-2.5 rounded-xl bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] border border-parchment-border font-semibold shadow-sm transition"
+          >
+            Salva nel Grimorio
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FINESTRELLA POP-UP 3: CONFERMA AZIONI (SOSTITUISCE CONFIRM/ALERT)
+       ======================================================================== -->
+  <div
+    id="confirmModalOverlay"
+    class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-[2px] flex items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="animate-modal w-full max-w-md rounded-2xl bg-parchment-card border-2 border-parchment-border shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 bg-[#EFE5CC] border-b border-parchment-border">
+        <h3 id="confirmModalTitle" class="font-cinzel text-lg font-black text-crimson-dnd">Conferma Operazione</h3>
+      </div>
+      <div class="p-5">
+        <p id="confirmModalMessage" class="text-sm text-ink-dnd leading-relaxed"></p>
+      </div>
+      <div class="px-5 py-3 bg-[#EFE5CC]/70 border-t border-parchment-border flex justify-end gap-2 font-ui text-sm">
+        <button
+          id="confirmCancelBtn"
+          type="button"
+          class="px-4 py-2 rounded-xl bg-parchment-card hover:bg-parchment-dark text-ink-dnd border border-parchment-border font-semibold transition"
+        >
+          Annulla
+        </button>
+        <button
+          id="confirmAcceptBtn"
+          type="button"
+          class="px-4 py-2 rounded-xl bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] font-semibold transition"
+        >
+          Conferma
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FINESTRELLA POP-UP 4: IMPORTA TESTO JSON
+       ======================================================================== -->
+  <div
+    id="pasteJsonModalOverlay"
+    class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-[2px] flex items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="animate-modal w-full max-w-lg rounded-2xl bg-parchment-card border-2 border-parchment-border shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-4 bg-[#EFE5CC] border-b border-parchment-border">
+        <h3 class="font-cinzel text-lg font-black text-crimson-dnd">Importa Backup JSON</h3>
+        <button id="closePasteJsonBtn" type="button" class="w-8 h-8 rounded-lg bg-parchment-card text-crimson-dnd border border-parchment-border font-bold">✕</button>
+      </div>
+      <div class="p-5 space-y-3 font-ui text-sm">
+        <p class="text-xs text-ink-muted">Incolla qui sotto il contenuto JSON precedentemente esportato o copiato negli appunti:</p>
+        <textarea id="pasteJsonTextarea" rows="6" placeholder='{"version": 2, "items": [...]}' class="w-full p-3 rounded-xl bg-[#FCF9F2] border border-parchment-border font-mono text-xs text-ink-dnd"></textarea>
+      </div>
+      <div class="px-5 py-3 bg-[#EFE5CC]/70 border-t border-parchment-border flex justify-end gap-2 font-ui text-sm">
+        <button id="cancelPasteJsonBtn" type="button" class="px-4 py-2 rounded-xl bg-parchment-card border border-parchment-border font-semibold">Annulla</button>
+        <button id="confirmPasteJsonBtn" type="button" class="px-4 py-2 rounded-xl bg-crimson-dnd text-[#F7F1E1] font-semibold">Importa Dati</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       BANNER TOAST NOTIFICHE & TIRI DI DADO AL VOLO
+       ======================================================================== -->
+  <div
+    id="toastContainer"
+    class="fixed bottom-4 right-4 left-4 sm:left-auto z-50 pointer-events-none flex flex-col items-center sm:items-end gap-2"
+  ></div>
+
+  <!-- ========================================================================
+       LOGICA APPLICATIVA, ILLUSTRAZIONI PDF AD ALTA DEFINIZIONE & DATABASE
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'otto_grimorio_v2';
+      const TRACKERS_KEY = 'otto_grimorio_v2_trackers';
+      const UI_PREFS_KEY = 'otto_grimorio_v2_ui';
+
+      /* ======================================================================
+         1. ILLUSTRAZIONI VETTORIALI AD ALTISSIMO DETTAGLIO DAL PDF
+         ====================================================================== */
+      const BUILTIN_ARTWORKS = {
+        // PAGINA 1 DEL PDF: ZUCCA-SPINA
+        'zucca-spina': `
+          <svg viewBox="0 0 320 320" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="zpBg" cx="50%" cy="48%" r="50%">
+                <stop offset="0%" stop-color="#FFE6B3" stop-opacity="0.9"/>
+                <stop offset="65%" stop-color="#E7D3A3" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#C9AD6A" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="zpShell" cx="42%" cy="36%" r="58%">
+                <stop offset="0%" stop-color="#FFB347"/>
+                <stop offset="35%" stop-color="#F26A1B"/>
+                <stop offset="78%" stop-color="#B83709"/>
+                <stop offset="100%" stop-color="#5C1604"/>
+              </radialGradient>
+              <radialGradient id="zpRibMid" cx="45%" cy="32%" r="60%">
+                <stop offset="0%" stop-color="#FFBE55"/>
+                <stop offset="45%" stop-color="#E85D12"/>
+                <stop offset="100%" stop-color="#782006"/>
+              </radialGradient>
+              <radialGradient id="zpEyeGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="30%" stop-color="#FEF08A"/>
+                <stop offset="75%" stop-color="#F59E0B"/>
+                <stop offset="100%" stop-color="#B45309"/>
+              </radialGradient>
+              <linearGradient id="zpWood" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#7C5638"/>
+                <stop offset="50%" stop-color="#4A2F1B"/>
+                <stop offset="100%" stop-color="#26150A"/>
+              </linearGradient>
+              <filter id="zpGlow" x="-25%" y="-25%" width="150%" height="150%">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Aura di sfondo e ombra a terra -->
+            <circle cx="160" cy="160" r="145" fill="url(#zpBg)"/>
+            <ellipse cx="160" cy="292" rx="88" ry="14" fill="#3B2313" opacity="0.28"/>
+
+            <!-- Zampe artigliate nodose e spinose (Sinistra e Destra) -->
+            <g stroke="#1E1108" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+              <!-- Zampa Sinistra -->
+              <path d="M115 224 L94 242 L106 258 L84 276 L70 272 L82 282 L94 290 L102 276 L116 286 L122 272 L110 262 L126 244 L134 226 Z" fill="url(#zpWood)"/>
+              <path d="M94 242 L78 236 L88 248 M106 258 L118 254 L110 264" fill="url(#zpWood)"/>
+              <!-- Zampa Destra -->
+              <path d="M205 224 L228 242 L214 258 L238 276 L252 272 L240 282 L226 290 L218 276 L204 286 L198 272 L210 262 L194 244 L186 226 Z" fill="url(#zpWood)"/>
+              <path d="M228 242 L244 236 L234 248 M214 258 L202 254 L210 264" fill="url(#zpWood)"/>
+            </g>
+
+            <!-- Spine legnose posteriori e laterali -->
+            <g fill="url(#zpWood)" stroke="#1E1108" stroke-width="2" stroke-linejoin="round">
+              <path d="M74 128 L34 94 L50 136 L26 144 L64 156 Z"/>
+              <path d="M246 128 L286 96 L270 138 L294 146 L256 158 Z"/>
+              <path d="M64 176 L28 192 L66 196 Z"/>
+              <path d="M256 176 L292 192 L254 196 Z"/>
+              <path d="M92 86 L74 62 L104 80 Z"/>
+              <path d="M228 86 L248 62 L216 80 Z"/>
+            </g>
+
+            <!-- Picciolo ritorto legnoso superiore -->
+            <g stroke="#1E1108" stroke-width="2.5" stroke-linejoin="round">
+              <path d="M138 78 C134 52, 152 24, 188 22 C198 21, 206 28, 200 36 C192 44, 176 42, 172 56 C169 66, 176 74, 184 78 C170 84, 150 84, 138 78 Z" fill="url(#zpWood)"/>
+              <path d="M148 46 L132 34 L144 54 M176 36 L190 16 L184 40" fill="url(#zpWood)"/>
+            </g>
+
+            <!-- Corpo principale della Zucca a spicchi -->
+            <g stroke="#291206" stroke-width="2.5">
+              <!-- Spicchi esterni -->
+              <ellipse cx="102" cy="156" rx="48" ry="74" fill="url(#zpShell)"/>
+              <ellipse cx="218" cy="156" rx="48" ry="74" fill="url(#zpShell)"/>
+              <!-- Spicchi intermedi -->
+              <ellipse cx="128" cy="156" rx="44" ry="79" fill="url(#zpShell)"/>
+              <ellipse cx="192" cy="156" rx="44" ry="79" fill="url(#zpShell)"/>
+              <!-- Spicchio centrale frontale -->
+              <ellipse cx="160" cy="156" rx="38" ry="82" fill="url(#zpRibMid)"/>
+            </g>
+
+            <!-- Venature e rughe sulla buccia -->
+            <g stroke="#5A1A05" stroke-width="1.4" fill="none" opacity="0.55">
+              <path d="M134 95 Q122 145 132 215"/>
+              <path d="M186 95 Q198 145 188 215"/>
+              <path d="M96 105 Q78 156 96 208"/>
+              <path d="M224 105 Q242 156 224 208"/>
+              <path d="M146 112 L160 122 L174 112"/>
+            </g>
+
+            <!-- Spine legnose frontali sporgenti dalla buccia -->
+            <g fill="url(#zpWood)" stroke="#1E1108" stroke-width="2" stroke-linejoin="round">
+              <path d="M112 104 L98 84 L122 98 Z"/>
+              <path d="M206 102 L222 82 L196 98 Z"/>
+              <path d="M84 162 L62 156 L82 174 Z"/>
+              <path d="M236 164 L258 158 L238 176 Z"/>
+              <path d="M118 206 L102 222 L128 214 Z"/>
+              <path d="M202 206 L218 222 L192 214 Z"/>
+            </g>
+
+            <!-- Bocca seghettata minacciosa -->
+            <path d="M88 164 L106 184 L118 172 L132 190 L146 175 L160 192 L174 175 L188 190 L202 172 L214 184 L232 164 L218 202 L202 192 L188 212 L174 196 L160 215 L146 196 L132 212 L118 192 L102 202 Z" fill="#230903" stroke="#140401" stroke-width="2" stroke-linejoin="round"/>
+            <!-- Bagliore interno nella bocca -->
+            <path d="M116 188 L132 198 L146 188 L160 200 L174 188 L188 198 L204 188 L188 204 L160 208 L132 204 Z" fill="#D94E0F" opacity="0.65"/>
+
+            <!-- Naso triangolare intagliato -->
+            <polygon points="160,138 149,158 171,158" fill="#2A0B03" stroke="#140401" stroke-width="2" stroke-linejoin="round"/>
+
+            <!-- Occhi giallo-oro luminosi e feroci -->
+            <g filter="url(#zpGlow)">
+              <polygon points="102,126 144,142 134,156 106,148" fill="url(#zpEyeGlow)" stroke="#3B1204" stroke-width="2" stroke-linejoin="round"/>
+              <polygon points="218,126 176,142 186,156 214,148" fill="url(#zpEyeGlow)" stroke="#3B1204" stroke-width="2" stroke-linejoin="round"/>
+              <!-- Pupille feroci -->
+              <ellipse cx="126" cy="143" rx="3" ry="7" transform="rotate(-18 126 143)" fill="#782006"/>
+              <ellipse cx="194" cy="143" rx="3" ry="7" transform="rotate(18 194 143)" fill="#782006"/>
+            </g>
+          </svg>
+        `,
+
+        // PAGINA 2 DEL PDF: PIETRA DEL CAOS (Bastone ritorto con gemma rossa, fiamme turchesi e fulmini)
+        'pietra-del-caos': `
+          <svg viewBox="0 0 320 320" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="pcAura" cx="35%" cy="32%" r="60%">
+                <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.38"/>
+                <stop offset="55%" stop-color="#0D9488" stop-opacity="0.14"/>
+                <stop offset="100%" stop-color="#C9AD6A" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="pcTurquoise" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#5EEAD4"/>
+                <stop offset="50%" stop-color="#14B8A6"/>
+                <stop offset="100%" stop-color="#0F766E"/>
+              </linearGradient>
+              <linearGradient id="pcWood" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#784B2A"/>
+                <stop offset="50%" stop-color="#452713"/>
+                <stop offset="100%" stop-color="#1F1007"/>
+              </linearGradient>
+              <radialGradient id="pcGem" cx="38%" cy="35%" r="62%">
+                <stop offset="0%" stop-color="#FFE4E6"/>
+                <stop offset="22%" stop-color="#FF4D4D"/>
+                <stop offset="65%" stop-color="#B91C1C"/>
+                <stop offset="100%" stop-color="#450A0A"/>
+              </radialGradient>
+              <filter id="pcGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="4.5" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Aura arcana -->
+            <circle cx="155" cy="155" r="145" fill="url(#pcAura)"/>
+
+            <!-- Fiamme eteree turchesi/ciano che avvolgono l'asta -->
+            <g fill="url(#pcTurquoise)" opacity="0.82" filter="url(#pcGlow)">
+              <path d="M98 118 C72 126, 84 156, 114 158 C94 176, 118 202, 146 196 C132 218, 160 238, 186 226 C176 248, 206 264, 228 248 C212 232, 224 214, 204 202 C222 192, 208 168, 186 168 C202 152, 184 128, 158 134 C166 114, 142 96, 118 112 Z"/>
+              <path d="M128 84 C112 72, 92 86, 102 104 C82 108, 76 130, 96 138" fill="none" stroke="#5EEAD4" stroke-width="4" stroke-linecap="round"/>
+              <path d="M196 164 C218 168, 226 190, 208 204 M232 204 C252 210, 258 232, 240 244" fill="none" stroke="#2DD4BF" stroke-width="3.5" stroke-linecap="round"/>
+            </g>
+
+            <!-- Asta ritorta in legno scuro con radici in basso a destra -->
+            <g stroke="#1C0E06" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M106 96 C122 118, 128 142, 148 160 C168 178, 174 204, 198 224 C216 240, 232 254, 256 268 L278 292 L264 286 L272 302 L254 284 L244 298 L244 278 L226 286 L234 268 C208 252, 188 232, 168 212 C148 192, 134 166, 114 146 C98 130, 90 116, 86 104 Z" fill="url(#pcWood)"/>
+              <!-- Rami e nodi sporgenti lungo il bastone -->
+              <path d="M164 176 L194 174 L176 188" fill="url(#pcWood)"/>
+              <path d="M188 206 L224 206 L202 218" fill="url(#pcWood)"/>
+              <path d="M214 234 L254 238 L228 246" fill="url(#pcWood)"/>
+              <path d="M138 166 L124 188 L148 176" fill="url(#pcWood)"/>
+            </g>
+
+            <!-- Testa scolpita a calice/artiglio del bastone -->
+            <path d="M52 72 C44 54, 56 32, 74 24 C78 36, 74 44, 84 42 C96 38, 112 46, 118 62 C124 78, 116 98, 102 108 C88 116, 68 110, 56 96 C46 84, 46 76, 52 72 Z" fill="url(#pcWood)" stroke="#1C0E06" stroke-width="2.5"/>
+
+            <!-- Sfera / Pietra del Caos rosso cremisi luminosa -->
+            <g filter="url(#pcGlow)">
+              <circle cx="84" cy="70" r="24" fill="url(#pcGem)" stroke="#450A0A" stroke-width="2"/>
+              <!-- Riflesso cristallino -->
+              <ellipse cx="76" cy="61" rx="7" ry="4.5" transform="rotate(-30 76 61)" fill="#FFFFFF" opacity="0.85"/>
+              <circle cx="92" cy="79" r="3" fill="#FCA5A5" opacity="0.6"/>
+            </g>
+
+            <!-- Filamenti di fulmine arcano chiaro che avvolgono gemma e bastone -->
+            <g fill="none" stroke="#FEF9C3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#pcGlow)">
+              <polyline points="54,84 68,94 64,106 86,108 106,126 126,132 138,152 162,162 178,186 202,198 222,226 246,242"/>
+              <polyline points="104,48 116,66 110,84 128,104 126,122"/>
+            </g>
+          </svg>
+        `,
+
+        // PAGINA 3 DEL PDF: ARTIGLI DELLA TARASCA ASTRALE (Guanti d'arme ossidiana con crepe laviche e artigli)
+        'artigli-tarasca-astrale': `
+          <svg viewBox="0 0 320 320" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="ataBg" cx="50%" cy="50%" r="52%">
+                <stop offset="0%" stop-color="#F97316" stop-opacity="0.28"/>
+                <stop offset="60%" stop-color="#7F1D1D" stop-opacity="0.1"/>
+                <stop offset="100%" stop-color="#C9AD6A" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="ataObsidian" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4B5563"/>
+                <stop offset="35%" stop-color="#27272A"/>
+                <stop offset="80%" stop-color="#121316"/>
+                <stop offset="100%" stop-color="#09090B"/>
+              </linearGradient>
+              <linearGradient id="ataClaw" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#71717A"/>
+                <stop offset="50%" stop-color="#27272A"/>
+                <stop offset="100%" stop-color="#09090B"/>
+              </linearGradient>
+              <filter id="ataLavaGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <circle cx="160" cy="160" r="145" fill="url(#ataBg)"/>
+
+            <!-- GUANTO SINISTRO -->
+            <g stroke="#09090B" stroke-width="2.2" stroke-linejoin="round">
+              <!-- Polsino e piastre dorsali con spuntoni -->
+              <path d="M58 56 L82 40 L94 62 L114 54 L124 88 L138 118 L134 156 L66 164 L48 124 L54 88 Z" fill="url(#ataObsidian)"/>
+              <!-- Spuntoni dorsali -->
+              <polygon points="56,74 36,64 52,92" fill="url(#ataClaw)"/>
+              <polygon points="116,74 136,62 122,94" fill="url(#ataClaw)"/>
+              <polygon points="84,42 82,22 96,46" fill="url(#ataClaw)"/>
+              <!-- Piastre nocche -->
+              <path d="M62 154 L136 146 L142 174 L60 184 Z" fill="url(#ataObsidian)"/>
+              <!-- 5 Artigli lunghi e ricurvi -->
+              <path d="M62 182 L44 218 L48 246 L62 214 L72 184 Z" fill="url(#ataClaw)"/>
+              <path d="M78 182 L68 232 L78 272 L90 230 L92 180 Z" fill="url(#ataClaw)"/>
+              <path d="M96 180 L94 238 L108 282 L116 234 L112 178 Z" fill="url(#ataClaw)"/>
+              <path d="M116 178 L120 230 L134 268 L138 224 L130 174 Z" fill="url(#ataClaw)"/>
+              <path d="M134 170 L146 206 L156 232 L154 198 L142 162 Z" fill="url(#ataClaw)"/>
+            </g>
+
+            <!-- Crepe laviche incandescenti sul Guanto Sinistro -->
+            <g fill="none" stroke-linecap="round" filter="url(#ataLavaGlow)">
+              <polyline points="68,94 86,108 106,102 124,116" stroke="#EF4444" stroke-width="4.5"/>
+              <polyline points="68,94 86,108 106,102 124,116" stroke="#FDE047" stroke-width="1.8"/>
+              <polyline points="74,132 96,126 116,138" stroke="#F97316" stroke-width="3.5"/>
+              <polyline points="74,132 96,126 116,138" stroke="#FEF08A" stroke-width="1.4"/>
+            </g>
+
+            <!-- GUANTO DESTRO -->
+            <g stroke="#09090B" stroke-width="2.2" stroke-linejoin="round">
+              <path d="M188 78 L210 56 L228 74 L248 64 L264 98 L272 134 L260 170 L190 174 L178 134 L184 102 Z" fill="url(#ataObsidian)"/>
+              <!-- Spuntoni dorsali -->
+              <polygon points="184,96 164,84 180,114" fill="url(#ataClaw)"/>
+              <polygon points="258,92 278,80 264,112" fill="url(#ataClaw)"/>
+              <polygon points="212,58 214,38 226,64" fill="url(#ataClaw)"/>
+              <!-- Piastre nocche -->
+              <path d="M186 166 L264 162 L268 190 L186 196 Z" fill="url(#ataObsidian)"/>
+              <!-- 5 Artigli lunghi e ricurvi -->
+              <path d="M184 184 L168 218 L172 246 L186 216 L194 190 Z" fill="url(#ataClaw)"/>
+              <path d="M198 194 L190 242 L202 280 L212 240 L214 194 Z" fill="url(#ataClaw)"/>
+              <path d="M218 194 L216 248 L230 292 L238 244 L234 192 Z" fill="url(#ataClaw)"/>
+              <path d="M238 192 L242 242 L256 280 L260 236 L252 190 Z" fill="url(#ataClaw)"/>
+              <path d="M254 188 L266 226 L276 254 L274 218 L264 180 Z" fill="url(#ataClaw)"/>
+            </g>
+
+            <!-- Crepe laviche incandescenti sul Guanto Destro -->
+            <g fill="none" stroke-linecap="round" filter="url(#ataLavaGlow)">
+              <polyline points="196,112 216,124 238,116 256,128" stroke="#EF4444" stroke-width="4.5"/>
+              <polyline points="196,112 216,124 238,116 256,128" stroke="#FDE047" stroke-width="1.8"/>
+              <polyline points="200,148 224,142 248,152" stroke="#F97316" stroke-width="3.5"/>
+              <polyline points="200,148 224,142 248,152" stroke="#FEF08A" stroke-width="1.4"/>
+            </g>
+          </svg>
+        `,
+
+        // EMBLEMI ARTISTICI PER GLI ALTRI OGGETTI MAGICI
+        'lama-patto-affamato': `
+          <svg viewBox="0 0 320 320" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lpaBlade" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#E2E8F0"/>
+                <stop offset="50%" stop-color="#64748B"/>
+                <stop offset="100%" stop-color="#1E293B"/>
+              </linearGradient>
+              <radialGradient id="lpaGem" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#F5D0FE"/>
+                <stop offset="45%" stop-color="#A855F7"/>
+                <stop offset="100%" stop-color="#4C1D95"/>
+              </radialGradient>
+            </defs>
+            <polygon points="248,44 128,150 156,178" fill="url(#lpaBlade)" stroke="#1E1B4B" stroke-width="2.5"/>
+            <line x1="236" y1="56" x2="144" y2="162" stroke="#C084FC" stroke-width="2.5"/>
+            <path d="M104 142 L166 204 L152 216 L92 156 Z" fill="#452713" stroke="#1C0E06" stroke-width="2"/>
+            <path d="M126 174 L74 226 L88 240 L140 188 Z" fill="#291509" stroke="#1C0E06" stroke-width="2"/>
+            <circle cx="132" cy="176" r="14" fill="url(#lpaGem)" stroke="#3B0764" stroke-width="2"/>
+            <circle cx="68" cy="242" r="12" fill="#C9AD6A" stroke="#452713" stroke-width="2"/>
+          </svg>
+        `,
+
+        'cuore-smeraldino': `
+          <svg viewBox="0 0 320 320" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="csEmerald" cx="40%" cy="35%" r="60%">
+                <stop offset="0%" stop-color="#A7F3D0"/>
+                <stop offset="40%" stop-color="#10B981"/>
+                <stop offset="100%" stop-color="#064E3B"/>
+              </radialGradient>
+            </defs>
+            <path d="M84 268 C118 222, 152 178, 198 118" stroke="#3F2312" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <path d="M174 114 C154 88, 166 54, 198 48 C230 42, 254 74, 238 106 C224 134, 194 140, 174 114 Z" fill="none" stroke="#4D7C0F" stroke-width="9"/>
+            <polygon points="204,64 226,86 204,116 182,86" fill="url(#csEmerald)" stroke="#022C22" stroke-width="2.5"/>
+            <path d="M156 146 C134 138, 128 158, 146 168 M188 134 C212 136, 214 156, 194 162" stroke="#15803D" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        `,
+
+        'vipera-del-vuoto': `
+          <svg viewBox="0 0 320 320" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="vvBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#312E81"/>
+                <stop offset="50%" stop-color="#1E1B4B"/>
+                <stop offset="100%" stop-color="#09090B"/>
+              </linearGradient>
+            </defs>
+            <path d="M74 264 C112 222, 134 196, 168 154 C194 122, 206 96, 224 74" stroke="url(#vvBody)" stroke-width="12" stroke-linecap="round" fill="none"/>
+            <path d="M204 82 C202 56, 228 40, 252 52 C264 58, 266 74, 252 82 L236 74 L244 92 C228 98, 210 94, 204 82 Z" fill="#1E1B4B" stroke="#818CF8" stroke-width="2"/>
+            <polygon points="246,74 252,88 242,80" fill="#F8FAFC"/>
+            <polygon points="236,76 240,90 232,82" fill="#F8FAFC"/>
+            <circle cx="232" cy="60" r="4" fill="#38BDF8"/>
+            <circle cx="144" cy="116" r="2.5" fill="#C4B5FD"/>
+            <circle cx="182" cy="176" r="3" fill="#818CF8"/>
+          </svg>
+        `,
+
+        'set-leggendario-sinergia': `
+          <svg viewBox="0 0 320 320" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="160" cy="160" r="92" fill="none" stroke="#C9AD6A" stroke-width="4" stroke-dasharray="10 6"/>
+            <polygon points="160,54 188,132 266,160 188,188 160,266 132,188 54,160 132,132" fill="#58180D" stroke="#C9AD6A" stroke-width="3"/>
+            <circle cx="160" cy="160" r="28" fill="#1E1B4B" stroke="#FDE047" stroke-width="3"/>
+          </svg>
+        `
+      };
+
+      /* ======================================================================
+         2. DEFINIZIONE CATEGORIE E PILLOLE RAPIDE
+         ====================================================================== */
+      const CATEGORIES = [
+        { id: 'creature', shortTitle: 'Zucca-Spina', title: 'Famiglio & Creature' },
+        { id: 'oggetti', shortTitle: 'Oggetti Magici', title: 'Oggetti Magici' },
+        { id: 'trucchetti', shortTitle: 'Trucchetti', title: 'Trucchetti' },
+        { id: 'suppliche', shortTitle: 'Suppliche Occulte', title: 'Suppliche Occulte' },
+        { id: 'incantesimi_suppliche', shortTitle: 'Inc. Suppliche', title: 'Incantesimi delle Suppliche Occulte' },
+        { id: 'incantesimi', shortTitle: 'Incantesimi', title: 'Incantesimi' },
+        { id: 'incantesimi_sottoclasse', shortTitle: 'Inc. Sottoclasse', title: 'Incantesimi Sottoclasse' },
+        { id: 'talenti', shortTitle: 'Talenti', title: 'Talenti' }
+      ];
+
+      /* ======================================================================
+         3. DATABASE COMPLETO AL 100% DAL PDF
+         ====================================================================== */
+      const DEFAULT_ITEMS = [
+        // --- 1. FAMIGLIO & CREATURE ---
+        {
+          id: 'zucca-spina',
+          category: 'creature',
+          isCustom: false,
+          customImage: null,
+          name: 'Zucca-Spina',
+          subtitle: 'Costrutto/Non-Morto • Piccolo, Neutrale',
+          ac: '14 (Buccia spessa e protetta da spine)',
+          hpMax: 35,
+          speed: '9 m',
+          stats: {
+            for: '12 (+1)',
+            des: '16 (+3)',
+            cos: '12 (+1)',
+            int: '6 (-2)',
+            sag: '10 (+0)',
+            car: '8 (-1)'
+          },
+          savingThrows: 'Des +5',
+          skills: 'Furtività +5, Atletica +3',
+          resistances: 'Necrotico, Veleno',
+          immunities: 'Avvelenato, Spaventato',
+          senses: 'Scurovisione 18 m, Percezione Passiva 10',
+          languages: 'Comprende i linguaggi del padrone ma non può parlare (emette solo stridori e crepitii di legni seccati)',
+          traits: [
+            {
+              name: 'Corpo Spinoso',
+              desc: 'Una creatura che colpisce Zucca-Spina con un attacco corpo a corpo mentre si trova entro 1,5 metri da lui subisce 1d4 danni perforanti a causa delle spine aguzze e legnose che gli coprono la buccia.'
+            },
+            {
+              name: 'Legame col Padrone',
+              desc: "In iniziativa, Zucca-Spina agisce subito dopo il turno del suo padrone. Può usare la Reazione del padrone per lanciare un attacco d'opportunità se il padrone gli impartisce l'ordine."
+            }
+          ],
+          actions: [
+            {
+              name: 'Incornata di Spine',
+              desc: 'Attacco con Arma Corpo a Corpo: +5 per colpire, portata 1,5m, un bersaglio. Colpito: 1d6 + 3 danni perforanti. Se il bersaglio è di taglia Media o inferiore, deve superare un TS su Forza con CD 13 o essere spinto a terra (Prono).'
+            },
+            {
+              name: 'Sputo di Semi Incandescenti',
+              desc: 'Attacco con Arma a Distanza: +5 per colpire, gittata 9m, un bersaglio. Colpito: 1d4 + 3 danni da fuoco o necrotici (a scelta del padrone).'
+            }
+          ],
+          bonusActions: [
+            {
+              name: 'Rampicante Intralciante (Ricarica 5 turni)',
+              desc: "Zucca-Spina scaglia un piccolo tralcio vegetale dalla sua base verso le caviglie di una creatura entro 4,5 metri. Il bersaglio deve superare un TS su Destrezza con CD 13 o vedere la sua velocità ridotta a 0 fino all'inizio del suo turno successivo."
+            }
+          ],
+          reactions: [
+            {
+              name: 'Scudo Vegetale',
+              desc: 'Quando il padrone di Zucca-Spina subisce un attacco corpo a corpo ed è entro 1,5 metri da lui, Zucca-Spina può intercettare il colpo: l’attacco subisce Svantaggio e, se colpisce comunque, Zucca-Spina subisce la metà dei danni al posto del padrone.'
+            }
+          ]
+        },
+
+        // --- 2. OGGETTI MAGICI ---
+        {
+          id: 'pietra-del-caos',
+          category: 'oggetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Pietra del Caos',
+          subtitle: 'Reliquia • Pietra Senziente / Focus Arcano',
+          powers: [
+            {
+              name: 'Singolarità Protettiva',
+              desc: "Come reazione quando sei bersaglio di un incantesimo, puoi far pulsare la pietra. Ottieni VANTAGGIO al TS contro quell'incantesimo. Se l'incantesimo richiede un tiro per colpire, l'attaccante ha SVANTAGGIO."
+            },
+            {
+              name: "Tocco dell'Ametista",
+              desc: 'Quando colpisci una creatura con un attacco, puoi infliggere un 1d8 danni da FORZA extra. Se la creatura sta mantenendo la CONCENTRAZIONE su un incantesimo, la CD per mantenerla aumenta di un valore pari al tuo bonus di competenza.'
+            },
+            {
+              name: 'Silenzio Astrale',
+              desc: "Ti permette, spendendo un'azione, di renderti invisibile e incorporeo ai danni magici. Solo quelli fisici ti potranno scalfire. Questa situazione rimane in essere finché non effettui un attacco o ti disimpegni."
+            },
+            {
+              name: 'Visione del Vuoto',
+              desc: 'Una volta per riposo lungo, puoi vedere attraverso le illusioni, individuare trappole invisibili o percepire la presenza di creature invisibili nel raggio di 10 metri.'
+            }
+          ],
+          malus: [
+            {
+              name: 'Entropia Magica',
+              desc: 'Quando usi la pietra, la magia intorno a te vacilla. Se un alleato entro 3 metri da te lancia un incantesimo nello stesso turno, FALLISCE automaticamente.'
+            },
+            {
+              name: "Freddo dell'Anima",
+              desc: 'Usare il potere della pietra riduce la tua temperatura corporea. Dopo tre utilizzi, subisci SVANTAGGIO alle prove di DESTREZZA (compresa INIZIATIVA) e hai un punto di indebolimento. Potrai annullarlo solo con un TS di Costituzione CD 13. Se fallirai dovrai aspettare di prendere un altro punto di indebolimento per provare la riduzione di 1 con il TS. Le potrai annullare tutte immediatamente permettendo alla pietra di "Divorare" un oggetto magico o non comune rendendolo successivamente semplicemente un ninnolo inutile.'
+            },
+            {
+              name: "Sussurri dell'Essenza",
+              desc: 'Ogni volta che utilizzi la visione del vuoto, la scheggia tenta di imporre la sua logica distorta alla tua mente. Devi superare un TS su Carisma (CD 12) per evitare di subire svantaggio alla tua prossima prova di Intelligenza, a causa della cacofonia di sussurri proibiti che la pietra ti proietta direttamente nel cervello.'
+            }
+          ],
+          synergy: '',
+          trackerConfig: {
+            label: "Utilizzi Pietra (Freddo dell'Anima)",
+            max: 3,
+            warnAtMax: '⚠️ Soglia 3/3 raggiunta! Svantaggio a DES/Iniziativa + 1 Punto Indebolimento (TS COS CD 13 o divora oggetto magico).',
+            secondaryToggle: 'Visione del Vuoto (1/Riposo Lungo)'
+          }
+        },
+        {
+          id: 'lama-patto-affamato',
+          category: 'oggetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Lama del Patto Affamato',
+          subtitle: 'Arma Magica • Pugnale del Patto',
+          powers: [
+            {
+              name: 'Meccanica',
+              desc: 'Ogni volta che Otto colpisce un nemico con il pugnale, la pietra senziente incastonata nell\'elsa accumula una "Carica di Risonanza" (fino a un massimo pari al suo bonus di competenza). Queste cariche non svaniscono tra i turni, ma si dissipano solo se Otto viene messo K.O. o se le scarica.'
+            },
+            {
+              name: 'Effetto di Danno',
+              desc: 'In qualsiasi momento, durante il suo turno, Otto può decidere di scaricare tutte le cariche accumulate in un colpo solo. Per ogni carica scaricata, il pugnale infligge un dado di danno extra 1d6 di danno di tipo "Forza" o "Psichico" (a scelta di Otto al momento dello scarico).'
+            },
+            {
+              name: 'Bonus di Sinergia',
+              desc: 'Se Otto colpisce un nemico che è già stato bersaglio di una sua Deflagrazione Occulta nello stesso combattimento, le cariche accumulate vengono considerate raddoppiate ai fini del calcolo del danno.'
+            }
+          ],
+          malus: [],
+          synergy: '',
+          trackerConfig: {
+            label: 'Cariche di Risonanza',
+            max: 6,
+            isResonanceBlade: true
+          }
+        },
+        {
+          id: 'cuore-smeraldino',
+          category: 'oggetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Cuore Smeraldino della Putrefazione',
+          subtitle: 'Oggetto Meraviglioso • Bastone Arcano',
+          powers: [
+            {
+              name: 'Deflagrazione Venefica',
+              desc: "Quando il warlock lancia l'incantesimo deflagrazione occulta può scegliere di convertire il tipo di danno dei raggi da forza a veleno. Inoltre per ogni colpo che avviene con successo lo stesso bersaglio nello stesso turno la tossina si accumula: il bersaglio subisce un danno da veleno extra pari al modificatore di carisma del warlock per ogni colpo che è andato a segno (sommato alla fine dei colpi)."
+            },
+            {
+              name: 'Respiro della Foresta Putrida',
+              desc: 'Il bastone conferisce al warlock resistenza ai danni da veleno. Una volta per riposo lungo quando il warlock subisce danni da veleno o da acido può usare una reazione per assorbire parte della tossina attraverso il bastone: riduce i danni subiti della metà e converte l’energia assorbita in punti ferita temporanei pari ai danni prevenuti.'
+            }
+          ],
+          malus: [],
+          synergy: '',
+          trackerConfig: {
+            label: 'Respiro della Foresta Putrida (1/Riposo Lungo)',
+            max: 1
+          }
+        },
+        {
+          id: 'vipera-del-vuoto',
+          category: 'oggetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Vipera del Vuoto',
+          subtitle: 'Bacchetta • Set Leggendario',
+          powers: [
+            {
+              name: "Morso dell'Oblio",
+              desc: '+3 ai tiri per colpire con incantesimi a distanza e alla CD dei tiri salvezza contro gli incantesimi lanciati da Otto.'
+            },
+            {
+              name: 'Tocco della Corrente Astrale',
+              desc: 'Quando Otto lancia un incantesimo che infligge danni, o se usa la bacchetta per un attacco magico, l’attacco infligge 2d8 danni da forza e 2d6 danni necrotici extra.'
+            },
+            {
+              name: "Il Cono d'Ombra della Vipera Astrale",
+              desc: "Condizione di utilizzo: Utilizzabile un numero di volte al giorno pari al Modificatore di Carisma di Otto. Dalla punta della bacchetta si srotola un cono spettrale lungo 12 metri, simile alle fauci spalancate di una colossale vipera fatta di pura oscurità stellare e vuoto pneumatico. Tutte le creature nell'area del cono subiscono 4d10 danni da forza e 4d10 danni necrotici (TS su Costituzione). Le creature che falliscono il tiro salvezza vengono risucchiate parzialmente dal vuoto, subendo lo stato Trattenute e accecate dall'oscurità soffocante per un minuto (possono ripetere il tiro salvezza alla fine di ogni loro turno per liberarsi)."
+            }
+          ],
+          malus: [],
+          synergy: "SET LEGGENDARIO — Bonus di Sinergia: Quando Otto bersaglia un nemico con un incantesimo di ammaliamento, illusione o invocazione (o un attacco magico), il bersaglio avverte un brivido gelido e subisce svantaggio sul primo tiro salvezza o tiro per colpire effettuato prima della fine del suo turno successivo.",
+          trackerConfig: {
+            label: "Cono d'Ombra (Usi/Giorno = Mod. CAR)",
+            max: 5
+          }
+        },
+        {
+          id: 'artigli-tarasca-astrale',
+          category: 'oggetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Artigli della Tarasca Astrale',
+          subtitle: "Guanti d'Arme • Set Leggendario",
+          powers: [
+            {
+              name: 'Corazza del Carapace Primordiale',
+              desc: '+3 alla Classe Armatura.'
+            },
+            {
+              name: 'Resistenza del Vuoto Titano',
+              desc: 'Forniscono Resistenza ai danni da Forza e Resistenza ai danni Necrotici.'
+            },
+            {
+              name: 'Il Flagello della Tarasca Astrale',
+              desc: "Condizione di utilizzo: Utilizzabile un numero di volte al giorno pari al Modificatore di Costituzione di Otto. Otto sferra un pugno sul terreno o compie un gesto circolare di scatto, rilasciando un cataclisma sferico in un raggio di 9 metri. La terra trema, si spacca in voragini e un'onda d'urto devastante travolge indiscriminatamente qualsiasi creatura, alleata o nemica, all'interno del raggio. Tutte le creature nell'area subiscono 5d10 danni da forza e 3d10 danni contundenti (salva su Forza con CD pari a 8 + il bonus di competenza + il modificatore di Costituzione per dimezzare i danni). Le creature che falliscono il tiro salvezza vengono violentemente scaraventate a terra e sbalzate di 4 metri verso l'esterno, subendo lo stato Prono."
+            }
+          ],
+          malus: [],
+          synergy: "SET LEGGENDARIO — Bonus di Sinergia: Quando Otto bersaglia un nemico con un incantesimo di ammaliamento, illusione o invocazione (o un attacco magico), il bersaglio avverte un brivido gelido e subisce svantaggio sul primo tiro salvezza o tiro per colpire effettuato prima della fine del suo turno successivo.",
+          trackerConfig: {
+            label: 'Flagello della Tarasca (Usi/Giorno = Mod. COS)',
+            max: 5
+          }
+        },
+        {
+          id: 'set-leggendario-sinergia',
+          category: 'oggetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Set Leggendario — Bonus di Sinergia',
+          subtitle: 'Vipera del Vuoto + Artigli della Tarasca Astrale',
+          powers: [
+            {
+              name: 'Bonus di Sinergia del Set Leggendario',
+              desc: 'Quando Otto bersaglia un nemico con un incantesimo di ammaliamento, illusione o invocazione (o un attacco magico), il bersaglio avverte un brivido gelido e subisce svantaggio sul primo tiro salvezza o tiro per colpire effettuato prima della fine del suo turno successivo.'
+            }
+          ],
+          malus: [],
+          synergy: 'Richiede la sintonia contemporanea con Vipera del Vuoto e Artigli della Tarasca Astrale.'
+        },
+
+        // --- 3. TRUCCHETTI ---
+        {
+          id: 'deflagrazione-occulta',
+          category: 'trucchetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Deflagrazione Occulta',
+          levelSchool: 'Trucchetto di Invocazione (warlock)',
+          castingTime: 'azione',
+          range: '36 metri',
+          components: 'V, S',
+          duration: 'istantanea',
+          description: "L'incantatore scaglia un raggio di energia crepitante, effettuando un attacco a distanza con incantesimo contro una creatura o un oggetto entro gittata. Se il colpo va a segno, il bersaglio subisce 1d10 danni da forza.",
+          higherLevels: "Trucchetto potenziato: L'incantesimo crea due raggi al 5° livello, tre raggi all'11° livello e quattro raggi al 17° livello. L'incantatore può indirizzare i raggi contro lo stesso bersaglio o contro bersagli differenti. Effettuando un tiro per colpire separato per ogni raggio."
+        },
+        {
+          id: 'rintocco-dei-morti',
+          category: 'trucchetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Rintocco dei Morti',
+          levelSchool: 'Trucchetto di Necromanzia (chierico, mago, warlock)',
+          castingTime: 'azione',
+          range: '18 metri',
+          components: 'V, S',
+          duration: 'istantanea',
+          description: "L'incantatore prende di mira una creatura entro gittata che è in grado di vedere, dopodiché si sente il singolo lugubre rintocco di una campana entro 3 metri da essa. Il bersaglio deve superare un tiro salvezza su Saggezza, altrimenti subisce 1d8 danni necrotici. Invece, se al bersaglio mancano punti ferita, subisce 1d12 danni necrotici.",
+          higherLevels: "Trucchetto potenziato: I danni dell'incantesimo aumentano di un dado quando l'incantatore raggiunge il 5° livello (2d8 o 2d12), l'11° livello (3d8 o 3d12) e il 17° livello (4d8 o 4d12)."
+        },
+        {
+          id: 'tocco-gelido',
+          category: 'trucchetti',
+          isCustom: false,
+          customImage: null,
+          name: 'Tocco Gelido',
+          levelSchool: 'Trucchetto di Necromanzia (mago, stregone, warlock)',
+          castingTime: 'azione',
+          range: 'contatto',
+          components: 'V, S',
+          duration: 'istantanea',
+          description: "Incanalando un flusso di gelo sepolcrale, l'incantatore effettua un attacco con incantesimo in mischia contro un bersaglio a portata. Se il colpo va a segno, il bersaglio subisce 1d10 danni necrotici e non può recuperare punti ferita fino al termine del turno successivo dell'incantatore.",
+          higherLevels: "Trucchetto potenziato: I danni aumentano di 1d10 quando l'incantatore raggiunge il 5° livello (2d10), l'11° livello (3d10) e il 17° livello (4d10)."
+        },
+
+        // --- 4. SUPPLICHE OCCULTE ---
+        {
+          id: 'armatura-delle-ombre',
+          category: 'suppliche',
+          isCustom: false,
+          customImage: null,
+          name: 'Armatura delle Ombre',
+          prerequisite: 'Nessuno',
+          description: 'Il warlock può lanciare armatura magica su se stesso senza spendere uno slot incantesimo.'
+        },
+        {
+          id: 'deflagrazione-agonizzante',
+          category: 'suppliche',
+          isCustom: false,
+          customImage: null,
+          name: 'Deflagrazione Agonizzante',
+          prerequisite: 'warlock di 2° livello o superiore, un trucchetto da warlock che infligge danni',
+          description: 'Il warlock sceglie uno dei suoi trucchetti che infligge danni e aggiunge il proprio modificatore di Carisma al tiro per i danni.\n\nRipetibile: Questa supplica è ottenibile più di una volta. A ogni utilizzo, è necessario selezionare un trucchetto diverso che ne soddisfi i prerequisiti.'
+        },
+        {
+          id: 'vigore-immondo',
+          category: 'suppliche',
+          isCustom: false,
+          customImage: null,
+          name: 'Vigore Immondo',
+          prerequisite: 'warlock di 2° livello o superiore',
+          description: 'Il warlock può lanciare vita falsata su se stesso senza spendere uno slot incantesimo. Quando l’incantesimo viene lanciato con questo privilegio, non è necessario effettuare il tiro per i punti ferita temporanei, poiché si ottiene in automatico il numero massimo possibile.'
+        },
+
+        // --- 5. INCANTESIMI DELLE SUPPLICHE OCCULTE ---
+        {
+          id: 'armatura-magica',
+          category: 'incantesimi_suppliche',
+          isCustom: false,
+          customImage: null,
+          name: 'Armatura Magica',
+          levelSchool: 'Abiurazione di 1° livello (mago, stregone)',
+          castingTime: 'azione',
+          range: 'contatto',
+          components: 'V, S, M (un pezzo di cuoio trattato)',
+          duration: '8 ore',
+          description: "L'incantatore tocca una creatura consenziente che non indossa un'armatura. Fino al termine dell'incantesimo, la CA base del bersaglio diventa 13 più il suo modificatore di Destrezza. L'incantesimo termina in anticipo se il bersaglio indossa un'armatura.",
+          higherLevels: ''
+        },
+        {
+          id: 'vita-falsata',
+          category: 'incantesimi_suppliche',
+          isCustom: false,
+          customImage: null,
+          name: 'Vita Falsata',
+          levelSchool: 'Necromanzia di 1° livello (mago, stregone)',
+          castingTime: 'azione',
+          range: 'incantatore',
+          components: 'V, S, M (una goccia di alcol)',
+          duration: 'istantanea',
+          description: "L'incantatore ottiene 2d4 + 4 punti ferita temporanei.",
+          higherLevels: "Utilizzo di uno slot incantesimo di livello superiore: L'incantatore ottiene 5 punti ferita temporanei aggiuntivi per ogni slot di livello superiore al 1°."
+        },
+
+        // --- 6. INCANTESIMI ---
+        {
+          id: 'intimorire-infernale',
+          category: 'incantesimi',
+          isCustom: false,
+          customImage: null,
+          name: 'Intimorire Infernale',
+          levelSchool: 'Invocazione di 1° livello (warlock)',
+          castingTime: "reazione, che l'incantatore effettua quando subisce danni da una creatura che è in grado di vedere entro 18 metri da sé",
+          range: '18 metri',
+          components: 'V, S',
+          duration: 'istantanea',
+          description: "La creatura che ha inflitto danni all'incantatore viene temporaneamente avviluppata da fiamme verdi. La creatura effettua un tiro salvezza su Destrezza, subendo 2d10 danni da fuoco in caso di fallimento, o la metà dei danni in caso di successo.",
+          higherLevels: 'Utilizzo di uno slot incantesimo di livello superiore: I danni aumentano di 1d10 per ogni slot di livello superiore al 1°.'
+        },
+        {
+          id: 'movimenti-del-ragno',
+          category: 'incantesimi',
+          isCustom: false,
+          customImage: null,
+          name: 'Movimenti del Ragno',
+          levelSchool: 'Trasmutazione di 2° livello (mago, stregone, warlock)',
+          castingTime: 'azione',
+          range: 'contatto',
+          components: 'V, S, M (una goccia di bitume e un ragno)',
+          duration: 'concentrazione, fino a 1 ora',
+          description: "Fino al termine dell'incantesimo, una creatura consenziente toccata dall'incantatore ottiene la capacità di muoversi verticalmente e orizzontalmente su pareti e soffitti, mantenendo le mani libere. Il bersaglio ottiene anche una velocità di scalata pari alla sua velocità.",
+          higherLevels: "Utilizzo di uno slot incantesimo di livello superiore: L'incantatore può bersagliare una creatura aggiuntiva per ogni slot di livello superiore al 2°."
+        },
+        {
+          id: 'invisibilita',
+          category: 'incantesimi',
+          isCustom: false,
+          customImage: null,
+          name: 'Invisibilità',
+          levelSchool: 'Illusione di 2° livello (bardo, mago, stregone, warlock)',
+          castingTime: 'azione',
+          range: 'contatto',
+          components: 'V, S, M (un ciglio in uno strato di resina)',
+          duration: 'concentrazione, fino a 1 ora',
+          description: "Una creatura toccata dall'incantatore diventa invisibile fino al termine dell'incantesimo. L'incantesimo termina immediatamente quando il bersaglio effettua un tiro per colpire, infligge danni o lancia un incantesimo.",
+          higherLevels: "Utilizzo di uno slot incantesimo di livello superiore: L'incantatore può bersagliare una creatura aggiuntiva per ogni slot di livello superiore al 2°."
+        },
+        {
+          id: 'aculeo-mentale',
+          category: 'incantesimi',
+          isCustom: false,
+          customImage: null,
+          name: 'Aculeo Mentale',
+          levelSchool: 'Divinazione di 2° livello (mago, stregone, warlock)',
+          castingTime: 'azione',
+          range: '36 metri',
+          components: 'S',
+          duration: 'concentrazione, fino a 1 ora',
+          description: "L'incantatore guida un flusso di energia psionica nella mente di una creatura entro gittata che è in grado di vedere. Il bersaglio effettua un tiro salvezza su Saggezza, subendo 3d8 danni psichici in caso di fallimento, o la metà dei danni in caso di successo. Se fallisce il tiro, l'incantatore sa sempre dove si trova il bersaglio fino al termine dell'incantesimo, ma solo se entrambi si trovano sullo stesso piano di esistenza. Finché l'incantatore è in possesso di queste conoscenze, il bersaglio non può nascondersi da lui e, se è invisibile, non ottiene alcun beneficio da questa condizione contro di lui.",
+          higherLevels: 'Utilizzo di uno slot incantesimo di livello superiore: I danni aumentano di 1d8 per ogni slot di livello superiore al 2°.'
+        },
+        {
+          id: 'dardo-stregato',
+          category: 'incantesimi',
+          isCustom: false,
+          customImage: null,
+          name: 'Dardo Stregato',
+          levelSchool: 'Invocazione di 1° livello (mago, stregone, warlock)',
+          castingTime: 'azione',
+          range: '18 metri',
+          components: 'V, S, M (un ramoscello colpito da un fulmine)',
+          duration: 'concentrazione, fino a 1 minuto',
+          description: "Un raggio di energia crepitante sfreccia verso una creatura entro gittata, formando una scarica di fulmini prolungata che intercorre tra l'incantatore e il bersaglio, effettuando un attacco a distanza con incantesimo contro di esso. Se lo colpisce, il bersaglio subisce 2d12 danni da fulmine. In ciascuno dei suoi turni successivi, l'incantatore può usare un'azione bonus per infliggere automaticamente 1d12 danni da fulmine al bersaglio, anche se il primo attacco non è andato a segno. L'incantesimo termina se il bersaglio si porta al di fuori della sua gittata o se beneficia di copertura totale rispetto all'incantatore.",
+          higherLevels: 'Utilizzo di uno slot incantesimo di livello superiore: I danni iniziali e la guarigione aumentano di 1d12 per ogni slot di livello superiore al 1°.'
+        },
+        {
+          id: 'ritorsione-infernale-bael',
+          category: 'incantesimi',
+          isCustom: false,
+          customImage: null,
+          name: 'Ritorsione Infernale (Hellish Rebuke) — Versione Marchio di Bael',
+          levelSchool: 'Privilegio / Reazione Speciale',
+          castingTime: '1 Reazione (in risposta al subire danno da una creatura entro 18 metri che puoi vedere)',
+          range: '18 metri',
+          components: 'V, S',
+          duration: 'Istantanea',
+          description: 'Punti il dito verso chi ti ha colpito circondandolo di fiamme infernali. La creatura effettua un Tiro Salvezza su Destrezza (contro la tua CD Incantesimi). Se fallisce, subisce 2d10 danni (1d10 da fuoco + 1d10 profano/necrotico). Se ha successo, subisce la metà dei danni.',
+          higherLevels: 'Tratto Speciale di Bael: Puoi lanciare questo incantesimo 1 volta per riposo lungo gratuitamente (senza consumare slot incantesimo).'
+        },
+
+        // --- 7. INCANTESIMI SOTTOCLASSE ---
+        {
+          id: 'individuazione-dei-pensieri',
+          category: 'incantesimi_sottoclasse',
+          isCustom: false,
+          customImage: null,
+          name: 'Individuazione dei Pensieri',
+          levelSchool: 'Divinazione di 2° livello (bardo, mago, stregone)',
+          castingTime: 'azione',
+          range: 'incantatore',
+          components: 'V, S, M (1 pezzo di rame)',
+          duration: 'concentrazione, fino a 1 minuto',
+          description: "L'incantatore attiva uno dei seguenti effetti. Fino al termine dell'incantesimo, può attivare entrambi gli effetti come azione di Magia nei suoi turni successivi.\n\n• Pensieri sensoriali: L'incantatore percepisce la presenza di pensieri entro 9 metri da sé appartenenti a creature che conoscono delle lingue o che comunicano telepaticamente. L'incantatore non legge nel pensiero, ma avverte la presenza di una creatura pensante. L'incantesimo viene bloccato da 30 cm di pietra, terriccio o legno, 2,5 centimetri di metallo o una sottile lamina di piombo.\n\n• Lettura del pensiero: L'incantatore bersaglia una creatura entro 9 metri da sé che è in grado di vedere o che ha individuato con l'opzione Pensieri sensoriali e apprende i pensieri superficiali del bersaglio, ciò che sta pensando in quel momento. Se il bersaglio non conosce alcuna lingua e non comunica telepaticamente, l'incantatore non apprende nulla. Come azione di Magia nel suo turno successivo, l'incantatore può provare a scavare più in profondità nella mente della creatura. Nell'ultimo caso, il bersaglio effettua un tiro salvezza su Saggezza. In caso di fallimento, l'incantatore ha accesso ai suoi ragionamenti, al suo stato emotivo e a ciò che principalmente riempie la sua mente (qualcosa di cui si preoccupa, che ama o odia). In caso di successo, l'incantesimo termina. In ogni caso, il bersaglio è consapevole che l'incantatore ha accesso alla sua mente e, se quest'ultimo non distoglie la sua attenzione dalla mente del bersaglio, il bersaglio può usare un'azione nel proprio turno per effettuare una prova di Intelligenza (Arcano) contro la CD del tiro salvezza sull'incantesimo; in caso di successo, l'incantesimo termina.",
+          higherLevels: ''
+        },
+        {
+          id: 'allucinazione-di-forza',
+          category: 'incantesimi_sottoclasse',
+          isCustom: false,
+          customImage: null,
+          name: 'Allucinazione di Forza',
+          levelSchool: 'Trasmutazione di 2° livello (mago, stregone)',
+          castingTime: 'azione',
+          range: '18 metri',
+          components: 'V, S, M (un ciuffo di lana)',
+          duration: 'concentrazione, fino a 1 minuto',
+          description: "L'incantatore tenta di creare un'illusione nella mente di una creatura entro gittata che è in grado di vedere. Il bersaglio effettua un tiro salvezza su Intelligenza. Se lo fallisce, l'incantatore crea l'illusione di un oggetto, una creatura o un fenomeno di altra natura, che non sia più grande di un cubo con spigolo di 3 metri e che sia percepibile soltanto dal bersaglio per la durata dell'incantesimo. L'allucinazione include suoni, temperature e altri stimoli analoghi.\n\nIl bersaglio può effettuare un'azione di Studio per esaminare l'allucinazione con una prova di Intelligenza (Indagare) contro la CD del tiro salvezza sull'incantesimo. Se supera la prova, il bersaglio capisce che l'allucinazione è un'illusione e l'incantesimo termina.\n\nFinché il bersaglio è influenzato dall'incantesimo, considera l'allucinazione come se fosse reale e razionalizza qualsiasi esito illogico prodotto dalle sue interazioni con essa. Ad esempio, se il bersaglio cammina attraverso un ponte illusorio e sopravvive alla caduta, crederà comunque che il ponte esista e che sia stato qualcos'altro a causare la caduta.\n\nUn bersaglio influenzato può perfino subire danni dall'illusione se l'allucinazione rappresenta una creatura pericolosa o un pericolo. In ogni turno dell'incantatore, l'allucinazione può infliggere 2d8 danni psichici al bersaglio se questo si trova nell'area dell'allucinazione o entro 1,5 metri da essa. Il bersaglio percepisce i danni come se fossero del tipo appropriato per l'illusione.",
+          higherLevels: ''
+        },
+        {
+          id: 'sussurri-dissonanti',
+          category: 'incantesimi_sottoclasse',
+          isCustom: false,
+          customImage: null,
+          name: 'Sussurri Dissonanti',
+          levelSchool: 'Ammaliamento di 1° livello (bardo)',
+          castingTime: 'azione',
+          range: '18 metri',
+          components: 'V',
+          duration: 'istantanea',
+          description: "Una creatura a scelta dell'incantatore, situata entro gittata e che sia in grado di vedere, sente una melodia dissonante nella sua mente. Il bersaglio effettua un tiro salvezza su Saggezza. Se lo fallisce, subisce 3d6 danni psichici e, se disponibile, deve usare immediatamente la sua reazione per muoversi fin dove la sua velocità glielo consente, percorrendo la via più sicura. Se invece lo supera, il bersaglio subisce soltanto la metà di quei danni.",
+          higherLevels: 'Utilizzo di uno slot incantesimo di livello superiore: I danni aumentano di 1d6 per ogni slot di livello superiore al 1°.'
+        },
+        {
+          id: 'risata-incontenibile-tasha',
+          category: 'incantesimi_sottoclasse',
+          isCustom: false,
+          customImage: null,
+          name: 'Risata Incontenibile di Tasha',
+          levelSchool: 'Ammaliamento di 1° livello (bardo, warlock, mago)',
+          castingTime: 'azione',
+          range: '9 metri',
+          components: 'V, S, M (una crostata e una piuma)',
+          duration: 'concentrazione, fino a 1 minuto',
+          description: "Una creatura a scelta entro gittata che l'incantatore è in grado di vedere effettua un tiro salvezza su Saggezza. Se lo fallisce, cade a terra prona ed è incapacitata per la durata dell'incantesimo. Durante quel periodo di tempo, ride incontrollabilmente (se è in grado di ridere) e non può porre fine alla condizione prono.\n\nIl bersaglio effettua un altro tiro salvezza su Saggezza alla fine di ogni suo turno e ogni volta che subisce danni; in quest'ultimo caso, lo effettua con vantaggio. In caso di successo, l'incantesimo termina.",
+          higherLevels: 'Utilizzo di uno slot incantesimo di livello superiore: I danni aumentano di 1d6 per ogni slot di livello superiore al 1°.'
+        },
+
+        // --- 8. TALENTI ---
+        {
+          id: 'attore',
+          category: 'talenti',
+          isCustom: false,
+          customImage: null,
+          name: 'Attore',
+          prerequisite: 'Talento Generale (prerequisito: 4° livello o superiore, Carisma 13 o superiore)',
+          description: "Il personaggio ottiene i seguenti benefici:\n\n• Incremento dei punteggi di caratteristica: Il suo punteggio di Carisma aumenta di 1, fino a un massimo di 20.\n\n• Impersonificazione: Quando il personaggio si finge qualcun altro (che sia reale o fittizio), ha vantaggio alle prove di Carisma (Inganno o Intrattenere) per convincere gli altri della sua identità.\n\n• Imitare: Il personaggio può imitare i suoni emessi da altre creature, inclusa la parlata. Una creatura che ascolti l'imitazione deve superare una prova di Saggezza (Intuizione) per capirne la natura ingannevole (CD 8 più il modificatore di Carisma e il bonus di competenza)."
+        }
+      ];
+
+      /* ======================================================================
+         4. STATO APPLICATIVO E PERSISTENZA LOCALSTORAGE ("otto_grimorio_v2")
+         ====================================================================== */
+      let items = loadItems();
+      let trackers = loadTrackers();
+      let uiPrefs = loadUiPrefs(); // { viewMode: 'full' | 'compact', openAccordions: {...} }
+      let activeDetailItemId = null;
+      let pendingUploadItemId = null; // null = form modal, otherwise item.id
+
+      function loadItems() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          }
+        } catch (e) {
+          console.error('Errore lettura localStorage:', e);
+        }
+        return JSON.parse(JSON.stringify(DEFAULT_ITEMS));
+      }
+
+      function saveItems() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        } catch (e) {
+          showToast('Spazio locale esaurito (prova a caricare un\'immagine più leggera).', 'error');
+        }
+      }
+
+      function loadTrackers() {
+        try {
+          const raw = localStorage.getItem(TRACKERS_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch (e) {}
+        return {
+          creatureHp: { 'zucca-spina': 35 },
+          creatureRecharge: { 'zucca-spina': 0 },
+          itemCounters: {},
+          itemSecondary: {},
+          baelFreeUsed: false
+        };
+      }
+
+      function saveTrackers() {
+        try {
+          localStorage.setItem(TRACKERS_KEY, JSON.stringify(trackers));
+        } catch (e) {}
+      }
+
+      function loadUiPrefs() {
+        const defaultAccordions = {};
+        CATEGORIES.forEach((c) => { defaultAccordions[c.id] = true; }); // Tutte APERTE di default!
+        try {
+          const raw = localStorage.getItem(UI_PREFS_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            return {
+              viewMode: parsed.viewMode === 'compact' ? 'compact' : 'full',
+              openAccordions: { ...defaultAccordions, ...(parsed.openAccordions || {}) }
+            };
+          }
+        } catch (e) {}
+        return {
+          viewMode: 'full',
+          openAccordions: defaultAccordions
+        };
+      }
+
+      function saveUiPrefs() {
+        try {
+          localStorage.setItem(UI_PREFS_KEY, JSON.stringify(uiPrefs));
+        } catch (e) {}
+      }
+
+      /* ======================================================================
+         5. SICUREZZA HTML, PARSER DADI CLICCABILI E NOTIFICHE TOAST
+         ====================================================================== */
+      function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      // Evidenzia formule di dadi (es. 1d10, 4d10, 1d6 + 3) e modificatori tiro (+5, +3) in pulsanti interattivi sicuri
+      function enrichWithDice(rawText) {
+        const escaped = escapeHtml(rawText);
+        // 1. Espressioni con dadi: es. 1d10, 2d4 + 4, 1d6 + 3, 5d10
+        const withDice = escaped.replace(
+          /\b(\d+d\d+(?:\s*[+-]\s*\d+)?)\b/gi,
+          (match) => {
+            const cleanFormula = match.replace(/\s+/g, '');
+            return `<button type="button" data-action="roll-dice" data-roll="${cleanFormula}" class="dice-pill" title="Clicca per tirare ${cleanFormula}">🎲 ${match}</button>`;
+          }
+        );
+        // 2. Modificatori d20 espliciti (es. +5 per colpire, Des +5, Furtività +5, Atletica +3, +3 ai tiri)
+        return withDice.replace(
+          /((?:per colpire|ai tiri per colpire|Des|For|Cos|Int|Sag|Car|Furtività|Atletica)\s*)([+-]\d+)|([+-]\d+)(\s*(?:per colpire|ai tiri per colpire))/gi,
+          (full, prefix1, mod1, mod2, suffix2) => {
+            if (mod1) {
+              return `${prefix1}<button type="button" data-action="roll-dice" data-roll="1d20${mod1}" class="dice-pill" title="Tira 1d20${mod1}">🎲 ${mod1}</button>`;
+            }
+            return `<button type="button" data-action="roll-dice" data-roll="1d20${mod2}" class="dice-pill" title="Tira 1d20${mod2}">🎲 ${mod2}</button>${suffix2}`;
+          }
+        );
+      }
+
+      function formatRichParagraphs(text) {
+        if (!text) return '';
+        return text
+          .split('\n\n')
+          .map((para) => `<p class="mb-2.5 last:mb-0">${enrichWithDice(para).replace(/\n/g, '<br />')}</p>`)
+          .join('');
+      }
+
+      function rollDiceExpression(formula) {
+        const clean = String(formula).replace(/\s+/g, '').toLowerCase();
+        const match = clean.match(/^(\d+)d(\d+)([+-]\d+)?$/);
+        if (!match) return;
+
+        const count = Math.min(50, Math.max(1, parseInt(match[1], 10)));
+        const sides = Math.min(1000, Math.max(2, parseInt(match[2], 10)));
+        const mod = match[3] ? parseInt(match[3], 10) : 0;
+
+        const rolls = [];
+        let sum = 0;
+        for (let i = 0; i < count; i++) {
+          const r = Math.floor(Math.random() * sides) + 1;
+          rolls.push(r);
+          sum += r;
+        }
+        const total = sum + mod;
+        const modStr = mod > 0 ? ` + ${mod}` : mod < 0 ? ` - ${Math.abs(mod)}` : '';
+        const isCrit = count === 1 && sides === 20 && rolls[0] === 20;
+        const isFumble = count === 1 && sides === 20 && rolls[0] === 1;
+
+        let badge = '';
+        if (isCrit) badge = ' 🔥 CRITICO!';
+        if (isFumble) badge = ' 💀 FALLIMENTO CRITICO!';
+
+        showToast(
+          `Tiro ${formula}: [${rolls.join(', ')}]${modStr} = ${total}${badge}`,
+          isFumble ? 'error' : 'dice'
+        );
+      }
+
+      function showToast(message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        let styleClasses = 'bg-parchment-card border-parchment-border text-crimson-dnd';
+        let icon = '✦';
+
+        if (type === 'error') {
+          styleClasses = 'bg-crimson-soft border-crimson-border text-crimson-dnd';
+          icon = '⚠️';
+        } else if (type === 'dice') {
+          styleClasses = 'bg-[#231A14] border-parchment-border text-[#F7F1E1]';
+          icon = '🎲';
+        }
+
+        toast.className = `pointer-events-auto font-ui text-xs sm:text-sm font-semibold px-4 py-3 rounded-xl shadow-2xl border-2 flex items-center gap-2 transition-all duration-300 max-w-md ${styleClasses}`;
+        toast.innerHTML = `
+          <span class="text-base shrink-0">${icon}</span>
+          <span class="leading-snug">${escapeHtml(message)}</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(8px)';
+          setTimeout(() => toast.remove(), 300);
+        }, 3600);
+      }
+
+      function getCategoryMeta(catId) {
+        return CATEGORIES.find((c) => c.id === catId) || { id: catId, shortTitle: catId, title: catId };
+      }
+
+      /* ======================================================================
+         6. GESTIONE IMMAGINI (BUILT-IN SVG PDF + CARICAMENTO E RESIZE CANVAS)
+         ====================================================================== */
+      function getItemArtworkHtml(item, sizeClass = 'w-28 h-28 sm:w-32 sm:h-32') {
+        if (item.customImage) {
+          return `
+            <div class="relative ${sizeClass} rounded-xl dnd-art-frame overflow-hidden shrink-0 group">
+              <img src="${item.customImage}" alt="${escapeHtml(item.name)}" class="w-full h-full object-cover" />
+            </div>
+          `;
+        }
+        const builtinSvg = BUILTIN_ARTWORKS[item.id];
+        if (builtinSvg) {
+          return `
+            <div class="relative ${sizeClass} rounded-xl dnd-art-frame p-1.5 flex items-center justify-center overflow-hidden shrink-0">
+              ${builtinSvg}
+            </div>
+          `;
+        }
+        return '';
+      }
+
+      function resizeAndEncodeImage(file, callback) {
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          const img = new Image();
+          img.onload = function () {
+            const maxDim = 480;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxDim || height > maxDim) {
+              if (width > height) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              } else {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+            callback(dataUrl);
+          };
+          img.onerror = function () {
+            showToast('Impossibile elaborare il file immagine selezionato.', 'error');
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      document.getElementById('cardImageInput').addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        resizeAndEncodeImage(file, (dataUrl) => {
+          if (pendingUploadItemId === '__FORM__') {
+            document.getElementById('formCustomImageData').value = dataUrl;
+            updateFormImagePreview(dataUrl);
+            showToast('Immagine pronta per il salvataggio!');
+          } else if (pendingUploadItemId) {
+            const idx = items.findIndex((i) => i.id === pendingUploadItemId);
+            if (idx >= 0) {
+              items[idx].customImage = dataUrl;
+              saveItems();
+              renderAll();
+              if (activeDetailItemId === pendingUploadItemId) {
+                openDetailModal(pendingUploadItemId);
+              }
+              showToast(`Immagine di "${items[idx].name}" aggiornata!`);
+            }
+          }
+          pendingUploadItemId = null;
+          e.target.value = '';
+        });
+      });
+
+      /* ======================================================================
+         7. MODALE DI CONFERMA PERSONALIZZATA (ZERO ALERT / ZERO CONFIRM)
+         ====================================================================== */
+      let pendingConfirmCallback = null;
+
+      function openConfirmModal(title, message, onConfirm, confirmLabel = 'Conferma') {
+        document.getElementById('confirmModalTitle').textContent = title;
+        document.getElementById('confirmModalMessage').textContent = message;
+        document.getElementById('confirmAcceptBtn').textContent = confirmLabel;
+        pendingConfirmCallback = onConfirm;
+        document.getElementById('confirmModalOverlay').classList.remove('hidden');
+      }
+
+      function closeConfirmModal() {
+        document.getElementById('confirmModalOverlay').classList.add('hidden');
+        pendingConfirmCallback = null;
+      }
+
+      document.getElementById('confirmCancelBtn').addEventListener('click', closeConfirmModal);
+      document.getElementById('confirmModalOverlay').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeConfirmModal();
+      });
+      document.getElementById('confirmAcceptBtn').addEventListener('click', () => {
+        const cb = pendingConfirmCallback;
+        closeConfirmModal();
+        if (typeof cb === 'function') cb();
+      });
+
+      /* ======================================================================
+         8. TRACCIATORI INTERATTIVI (PF ZUCCA-SPINA, RICARICA, CARICHE OGGETTI)
+         ====================================================================== */
+      function getCreatureHp(item) {
+        const max = parseInt(item.hpMax, 10) || 35;
+        if (trackers.creatureHp[item.id] === undefined) {
+          trackers.creatureHp[item.id] = max;
+        }
+        return { current: trackers.creatureHp[item.id], max };
+      }
+
+      function updateCreatureHp(itemId, delta, isReset = false) {
+        const item = items.find((i) => i.id === itemId);
+        if (!item) return;
+        const max = parseInt(item.hpMax, 10) || 35;
+        const cur = getCreatureHp(item).current;
+        trackers.creatureHp[itemId] = isReset ? max : Math.max(0, Math.min(max, cur + delta));
+        saveTrackers();
+        renderAll();
+        if (activeDetailItemId === itemId) openDetailModal(itemId);
+      }
+
+      function getCreatureRecharge(itemId) {
+        return trackers.creatureRecharge[itemId] || 0;
+      }
+
+      function updateCreatureRecharge(itemId, action) {
+        let state = getCreatureRecharge(itemId);
+        if (action === 'use') {
+          state = 1;
+        } else if (action === 'nextTurn') {
+          if (state > 0) {
+            state += 1;
+            if (state > 5) state = 0;
+          }
+        } else if (action === 'reset') {
+          state = 0;
+        }
+        trackers.creatureRecharge[itemId] = state;
+        saveTrackers();
+        renderAll();
+        if (activeDetailItemId === itemId) openDetailModal(itemId);
+      }
+
+      function renderCreatureInteractiveBar(item) {
+        const { current, max } = getCreatureHp(item);
+        const pct = Math.max(0, Math.min(100, Math.round((current / max) * 100)));
+        const hpColor = pct > 50 ? 'bg-sage-dark' : pct > 25 ? 'bg-amber-600' : 'bg-crimson-dnd';
+        const hasVineRecharge =
+          item.id === 'zucca-spina' ||
+          (item.bonusActions && item.bonusActions.some((b) => b.name.toLowerCase().includes('rampicante')));
+        const rechargeState = getCreatureRecharge(item.id);
+
+        return `
+          <div class="mt-3 p-3 sm:p-3.5 rounded-xl bg-[#F3EAD3] border border-parchment-border space-y-3" data-stop-card="1">
+            <!-- Contatore Punti Ferita -->
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                <span class="font-cinzel text-xs sm:text-sm font-bold uppercase tracking-wide text-crimson-dnd">
+                  ❤️ Punti Ferita
+                </span>
+                <span class="font-ui text-sm sm:text-base font-extrabold text-ink-dnd">
+                  ${current} <span class="text-ink-muted font-normal">/ ${max} PF</span>
+                </span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-parchment-card border border-parchment-border/70 overflow-hidden mb-2">
+                <div class="h-full ${hpColor} transition-all duration-200" style="width: ${pct}%"></div>
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5 font-ui text-xs">
+                <button type="button" data-action="hp-delta" data-delta="-5" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-crimson-soft hover:bg-[#ebd3cd] text-crimson-dnd font-bold border border-crimson-border transition">-5</button>
+                <button type="button" data-action="hp-delta" data-delta="-1" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-crimson-soft hover:bg-[#ebd3cd] text-crimson-dnd font-bold border border-crimson-border transition">-1</button>
+                <button type="button" data-action="hp-delta" data-delta="1" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-sage-dnd hover:bg-[#d8e3ce] text-sage-dark font-bold border border-sage-border transition">+1</button>
+                <button type="button" data-action="hp-delta" data-delta="5" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-sage-dnd hover:bg-[#d8e3ce] text-sage-dark font-bold border border-sage-border transition">+5</button>
+                <button type="button" data-action="hp-reset" data-id="${item.id}" class="ml-auto px-2.5 py-1.5 rounded-lg bg-parchment-card hover:bg-parchment-dark text-ink-muted font-semibold border border-parchment-border transition">Reset PF</button>
+              </div>
+            </div>
+
+            ${hasVineRecharge ? `
+            <!-- Tracciatore Ricarica Rampicante Intralciante -->
+            <div class="pt-2.5 border-t border-parchment-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="font-ui text-xs">
+                <span class="font-bold text-crimson-dnd">🌿 Rampicante Intralciante (Ricarica 5 turni):</span>
+                ${
+                  rechargeState === 0
+                    ? `<span class="inline-block mt-0.5 sm:mt-0 sm:ml-1.5 px-2 py-0.5 rounded-full bg-sage-dnd text-sage-dark border border-sage-border font-bold">Pronto!</span>`
+                    : `<span class="inline-block mt-0.5 sm:mt-0 sm:ml-1.5 px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-400 font-bold">In Ricarica: Turno ${rechargeState}/5</span>`
+                }
+              </div>
+              <div class="flex items-center gap-1.5 font-ui text-xs">
+                ${
+                  rechargeState === 0
+                    ? `<button type="button" data-action="recharge" data-sub="use" data-id="${item.id}" class="px-3 py-1.5 rounded-lg bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] font-semibold transition">Usa Tralcio</button>`
+                    : `<button type="button" data-action="recharge" data-sub="nextTurn" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-amber-700 hover:bg-amber-800 text-white font-semibold transition">+1 Turno</button>
+                       <button type="button" data-action="recharge" data-sub="reset" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-parchment-card hover:bg-parchment-dark text-ink-dnd border border-parchment-border font-semibold transition">Ricarica</button>`
+                }
+              </div>
+            </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      function renderItemTracker(item) {
+        if (!item.trackerConfig) return '';
+        const cfg = item.trackerConfig;
+        const cur = trackers.itemCounters[item.id] || 0;
+        const max = cfg.max || 3;
+        const secActive = !!trackers.itemSecondary[item.id];
+
+        if (cfg.isResonanceBlade) {
+          return `
+            <div class="mt-3 p-3 rounded-xl bg-[#F3EAD3] border border-parchment-border font-ui text-xs space-y-2" data-stop-card="1">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-bold text-crimson-dnd">⚡ ${escapeHtml(cfg.label)}</span>
+                <span class="font-extrabold text-sm text-ink-dnd">${cur} / ${max}</span>
+              </div>
+              <div class="text-[11px] text-ink-muted">
+                Scarico: <strong class="text-crimson-dnd">${cur}d6</strong> danni (${cur * 2}d6 se bersaglio di Deflagrazione Occulta)
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button type="button" data-action="counter-delta" data-delta="1" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] font-semibold transition">+1 Carica</button>
+                <button type="button" data-action="counter-delta" data-delta="-1" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-parchment-card hover:bg-parchment-dark text-ink-dnd border border-parchment-border font-semibold transition">-1</button>
+                ${
+                  cur > 0
+                    ? `<button type="button" data-action="roll-dice" data-roll="${cur}d6" class="px-2.5 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-400 font-bold transition">🎲 Tira ${cur}d6</button>`
+                    : ''
+                }
+                <button type="button" data-action="counter-reset" data-id="${item.id}" class="ml-auto px-2.5 py-1.5 rounded-lg bg-sage-dnd hover:bg-[#d8e3ce] text-sage-dark border border-sage-border font-semibold transition">Scarica (0)</button>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="mt-3 p-3 rounded-xl bg-[#F3EAD3] border border-parchment-border font-ui text-xs space-y-2" data-stop-card="1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-bold text-crimson-dnd">✦ ${escapeHtml(cfg.label)}</span>
+              <span class="font-extrabold text-sm text-ink-dnd">${cur} / ${max}</span>
+            </div>
+            ${
+              cfg.warnAtMax && cur >= max
+                ? `<div class="p-2 rounded-lg bg-crimson-soft border border-crimson-border text-crimson-dnd text-[11px] font-semibold">${escapeHtml(cfg.warnAtMax)}</div>`
+                : ''
+            }
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button type="button" data-action="counter-delta" data-delta="1" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] font-semibold transition">+1 Uso</button>
+              <button type="button" data-action="counter-delta" data-delta="-1" data-id="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-parchment-card hover:bg-parchment-dark text-ink-dnd border border-parchment-border font-semibold transition">-1</button>
+              <button type="button" data-action="counter-reset" data-id="${item.id}" class="ml-auto px-2.5 py-1.5 rounded-lg bg-parchment-card hover:bg-parchment-dark text-ink-muted border border-parchment-border font-semibold transition">Azzera</button>
+            </div>
+            ${
+              cfg.secondaryToggle
+                ? `
+                <div class="pt-2 border-t border-parchment-border/60 flex items-center justify-between gap-2">
+                  <span class="text-[11px] font-medium text-ink-dnd">${escapeHtml(cfg.secondaryToggle)}</span>
+                  <button type="button" data-action="secondary-toggle" data-id="${item.id}" class="px-2.5 py-1 rounded-lg font-bold text-[11px] border transition ${
+                    secActive
+                      ? 'bg-crimson-soft text-crimson-dnd border-crimson-border'
+                      : 'bg-sage-dnd text-sage-dark border-sage-border'
+                  }">
+                    ${secActive ? 'Usata' : 'Disponibile'}
+                  </button>
+                </div>
+                `
+                : ''
+            }
+          </div>
+        `;
+      }
+
+      /* ======================================================================
+         9. PULSANTI IMMAGINE SU OGNI SCHEDA
+         ====================================================================== */
+      function renderCardImageActions(item) {
+        return `
+          <div class="flex flex-wrap items-center gap-1.5 font-ui text-[11px]" data-stop-card="1">
+            <button
+              type="button"
+              data-action="trigger-upload"
+              data-id="${item.id}"
+              class="px-2.5 py-1 rounded-lg bg-parchment-bg hover:bg-parchment-dark text-ink-dnd border border-parchment-border font-semibold transition flex items-center gap-1"
+              title="Carica o sostituisci immagine dal tuo dispositivo"
+            >
+              <span>🖼️ ${item.customImage || BUILTIN_ARTWORKS[item.id] ? 'Sostituisci Immagine' : 'Carica Immagine'}</span>
+            </button>
+            ${
+              item.customImage
+                ? `<button
+                    type="button"
+                    data-action="reset-image"
+                    data-id="${item.id}"
+                    class="px-2 py-1 rounded-lg bg-crimson-soft hover:bg-[#ebd3cd] text-crimson-dnd border border-crimson-border font-semibold transition"
+                    title="Ripristina illustrazione predefinita"
+                  >
+                    ↺ Ripristina
+                  </button>`
+                : ''
+            }
+          </div>
+        `;
+      }
+
+      /* ======================================================================
+         10. RENDERING SCHEDE (VISTA COMPLETA DEFAULT VS VISTA COMPATTA)
+         ====================================================================== */
+      function renderCreatureCard(item) {
+        const isFull = uiPrefs.viewMode === 'full';
+        const statsEntries = [
+          ['FOR', item.stats?.for || '10 (+0)'],
+          ['DES', item.stats?.des || '10 (+0)'],
+          ['COS', item.stats?.cos || '10 (+0)'],
+          ['INT', item.stats?.int || '10 (+0)'],
+          ['SAG', item.stats?.sag || '10 (+0)'],
+          ['CAR', item.stats?.car || '10 (+0)']
+        ];
+        const artwork = getItemArtworkHtml(item, 'w-28 h-28 sm:w-36 sm:h-36');
+
+        return `
+          <article
+            data-action="open-detail"
+            data-id="${item.id}"
+            class="col-span-1 md:col-span-2 xl:col-span-3 dnd-statblock-frame rounded-2xl p-4 sm:p-6 cursor-pointer transition hover:shadow-xl"
+          >
+            <!-- Intestazione con Illustrazione originale del PDF -->
+            <div class="flex flex-col sm:flex-row items-start justify-between gap-4">
+              <div class="flex flex-col sm:flex-row items-start gap-4">
+                ${artwork}
+                <div class="space-y-1.5">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="font-cinzel text-2xl sm:text-3xl font-black text-crimson-dnd tracking-wide">${escapeHtml(item.name)}</h3>
+                    ${item.isCustom ? `<span class="font-ui text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-sage-dnd text-sage-dark border border-sage-border">Personalizzato</span>` : ''}
+                  </div>
+                  <p class="text-xs sm:text-sm italic text-ink-muted">${escapeHtml(item.subtitle)}</p>
+                  <div class="pt-1 space-y-0.5 text-xs sm:text-sm">
+                    <p><strong class="text-crimson-dnd">Classe Armatura:</strong> ${enrichWithDice(item.ac)}</p>
+                    <p><strong class="text-crimson-dnd">Punti Ferita:</strong> ${escapeHtml(String(item.hpMax))}</p>
+                    <p><strong class="text-crimson-dnd">Velocità:</strong> ${escapeHtml(item.speed)}</p>
+                  </div>
+                  <div class="pt-1">
+                    ${renderCardImageActions(item)}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                data-action="open-detail"
+                data-id="${item.id}"
+                class="self-start font-ui text-xs font-semibold px-3.5 py-2 rounded-xl bg-crimson-dnd hover:bg-crimson-light text-[#F7F1E1] border border-parchment-border shadow-sm transition shrink-0"
+              >
+                Dettagli / Modifica
+              </button>
+            </div>
+
+            <div class="dnd-taper my-3"></div>
+
+            <!-- Griglia 6 Caratteristiche -->
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center my-3">
+              ${statsEntries.map(([label, val]) => `
+                <div class="py-2 px-1.5 rounded-xl bg-[#F5EDD8] border border-parchment-border/75">
+                  <div class="font-cinzel text-xs font-black text-crimson-dnd">${label}</div>
+                  <div class="font-ui text-xs sm:text-sm font-bold text-ink-dnd mt-0.5">${escapeHtml(val)}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Tratti, Resistenze, Sensi -->
+            <div class="space-y-1 text-xs sm:text-sm">
+              ${item.savingThrows ? `<p><strong class="text-crimson-dnd">Tiri Salvezza:</strong> ${enrichWithDice(item.savingThrows)}</p>` : ''}
+              ${item.skills ? `<p><strong class="text-crimson-dnd">Abilità:</strong> ${enrichWithDice(item.skills)}</p>` : ''}
+              ${item.resistances ? `<p><strong class="text-crimson-dnd">Resistenze ai Danni:</strong> ${escapeHtml(item.resistances)}</p>` : ''}
+              ${item.immunities ? `<p><strong class="text-crimson-dnd">Immunità alle Condizioni:</strong> ${escapeHtml(item.immunities)}</p>` : ''}
+              ${item.senses ? `<p><strong class="text-crimson-dnd">Sensi:</strong> ${escapeHtml(item.senses)}</p>` : ''}
+              ${item.languages ? `<p><strong class="text-crimson-dnd">Linguaggi:</strong> ${escapeHtml(item.languages)}</p>` : ''}
+            </div>
+
+            ${isFull ? `
+              <!-- VISTA COMPLETA: TUTTI I TRATTI, AZIONI, AZIONI BONUS E REAZIONI SUBITO LEGGIBILI -->
+              ${(item.traits && item.traits.length > 0) ? `
+                <div class="dnd-taper my-3"></div>
+                <div class="space-y-2 text-xs sm:text-sm">
+                  ${item.traits.map((t) => `
+                    <p><strong class="italic text-crimson-dnd">${escapeHtml(t.name)}.</strong> ${enrichWithDice(t.desc)}</p>
+                  `).join('')}
+                </div>
+              ` : ''}
+
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+                ${(item.actions && item.actions.length > 0) ? `
+                  <div class="p-3.5 rounded-xl bg-[#F7F1E1]/80 border border-parchment-border/70 space-y-2 text-xs sm:text-sm">
+                    <h4 class="font-cinzel text-base font-black text-crimson-dnd border-b border-crimson-dnd/35 pb-1">Azioni</h4>
+                    ${item.actions.map((a) => `
+                      <p><strong class="italic text-crimson-dnd">${escapeHtml(a.name)}.</strong> ${enrichWithDice(a.desc)}</p>
+                    `).join('')}
+                  </div>
+                ` : ''}
+
+                <div class="space-y-3 text-xs sm:text-sm">
+                  ${(item.bonusActions && item.bonusActions.length > 0) ? `
+                    <div class="p-3.5 rounded-xl bg-[#F7F1E1]/80 border border-parchment-border/70 space-y-2">
+                      <h4 class="font-cinzel text-base font-black text-crimson-dnd border-b border-crimson-dnd/35 pb-1">Azioni Bonus</h4>
+                      ${item.bonusActions.map((ba) => `
+                        <p><strong class="italic text-crimson-dnd">${escapeHtml(ba.name)}.</strong> ${enrichWithDice(ba.desc)}</p>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+
+                  ${(item.reactions && item.reactions.length > 0) ? `
+                    <div class="p-3.5 rounded-xl bg-[#F7F1E1]/80 border border-parchment-border/70 space-y-2">
+                      <h4 class="font-cinzel text-base font-black text-crimson-dnd border-b border-crimson-dnd/35 pb-1">Reazioni</h4>
+                      ${item.reactions.map((r) => `
+                        <p><strong class="italic text-crimson-dnd">${escapeHtml(r.name)}.</strong> ${enrichWithDice(r.desc)}</p>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Contatore Interattivo PF & Ricarica -->
+            ${renderCreatureInteractiveBar(item)}
+          </article>
+        `;
+      }
+
+      function renderObjectCard(item) {
+        const isFull = uiPrefs.viewMode === 'full';
+        const hasSet = Boolean(item.synergy);
+        const hasMalus = item.malus && item.malus.length > 0;
+        const artwork = getItemArtworkHtml(item, 'w-24 h-24 sm:w-28 sm:h-28');
+
+        return `
+          <article
+            data-action="open-detail"
+            data-id="${item.id}"
+            class="dnd-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer"
+          >
+            <div>
+              <!-- Intestazione con Immagine -->
+              <div class="flex items-start gap-3.5">
+                ${artwork}
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                    ${hasSet ? `<span class="font-ui text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-sage-dnd text-sage-dark border border-sage-border">Set Leggendario</span>` : ''}
+                    ${hasMalus ? `<span class="font-ui text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-crimson-soft text-crimson-dnd border border-crimson-border">Con Malus</span>` : ''}
+                    ${item.isCustom ? `<span class="font-ui text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">Personalizzato</span>` : ''}
+                  </div>
+                  <h3 class="font-cinzel text-lg sm:text-xl font-black text-crimson-dnd leading-snug">${escapeHtml(item.name)}</h3>
+                  <p class="text-xs italic text-ink-muted">${escapeHtml(item.subtitle || 'Oggetto Magico')}</p>
+                  <div class="mt-2">
+                    ${renderCardImageActions(item)}
+                  </div>
+                </div>
+              </div>
+
+              <div class="dnd-taper my-3"></div>
+
+              <!-- Poteri: Completi in Vista Completa, sintetici in Vista Compatta -->
+              <div class="space-y-2.5 text-xs sm:text-sm text-ink-dnd">
+                ${(item.powers || []).map((p) => `
+                  <div class="${isFull ? 'p-2.5 rounded-xl bg-[#F7F1E1]/85 border border-parchment-border/60' : 'line-clamp-2'}">
+                    <strong class="text-crimson-dnd">• ${escapeHtml(p.name)}:</strong> ${enrichWithDice(p.desc)}
+                  </div>
+                `).join('')}
+              </div>
+
+              ${hasMalus ? (
+                isFull ? `
+                  <div class="mt-3 space-y-2">
+                    <p class="font-cinzel text-xs font-black uppercase tracking-wider text-crimson-dnd">Malus &amp; Effetti Collaterali</p>
+                    ${item.malus.map((m) => `
+                      <div class="p-2.5 rounded-xl dnd-callout-malus text-xs sm:text-sm text-ink-dnd">
+                        <strong class="text-crimson-dnd">⚠️ ${escapeHtml(m.name)}:</strong> ${enrichWithDice(m.desc)}
+                      </div>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <div class="mt-2.5 px-2.5 py-1.5 rounded-lg dnd-callout-malus text-xs text-crimson-dnd">
+                    <strong>Malus (${item.malus.length}):</strong> ${item.malus.map((m) => escapeHtml(m.name)).join(', ')}
+                  </div>
+                `
+              ) : ''}
+
+              ${isFull && item.synergy ? `
+                <div class="mt-3 p-3 rounded-xl dnd-callout-sage text-xs sm:text-sm text-ink-dnd">
+                  ${enrichWithDice(item.synergy)}
+                </div>
+              ` : ''}
+
+              ${renderItemTracker(item)}
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-parchment-border/60 flex items-center justify-between">
+              <span class="font-ui text-xs text-ink-muted">${(item.powers || []).length} Poteri</span>
+              <button
+                type="button"
+                data-action="open-detail"
+                data-id="${item.id}"
+                class="font-ui text-xs font-semibold px-3 py-1.5 rounded-lg bg-crimson-dnd/10 hover:bg-crimson-dnd text-crimson-dnd hover:text-[#F7F1E1] border border-crimson-dnd/30 transition"
+              >
+                Dettagli / Modifica →
+              </button>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderSpellCard(item) {
+        const isFull = uiPrefs.viewMode === 'full';
+        const isBael = item.id === 'ritorsione-infernale-bael';
+        const isConc = (item.duration || '').toLowerCase().includes('concentrazione');
+        const isReac = (item.castingTime || '').toLowerCase().includes('reazione');
+        const artwork = getItemArtworkHtml(item, 'w-16 h-16 sm:w-20 sm:h-20');
+
+        return `
+          <article
+            data-action="open-detail"
+            data-id="${item.id}"
+            class="dnd-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer"
+          >
+            <div>
+              <div class="flex items-start gap-3">
+                ${artwork}
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                    ${isConc ? `<span class="font-ui text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-400">Concentrazione</span>` : ''}
+                    ${isReac ? `<span class="font-ui text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-crimson-soft text-crimson-dnd border border-crimson-border">Reazione</span>` : ''}
+                    ${item.isCustom ? `<span class="font-ui text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-sage-dnd text-sage-dark border border-sage-border">Personalizzato</span>` : ''}
+                  </div>
+                  <h3 class="font-cinzel text-lg font-black text-crimson-dnd leading-snug">${escapeHtml(item.name)}</h3>
+                  <p class="text-xs italic text-ink-muted mt-0.5">${escapeHtml(item.levelSchool || '')}</p>
+                </div>
+              </div>
+
+              <div class="dnd-taper my-2.5"></div>
+
+              <!-- Metadati completi -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-xs bg-[#F5EDD8]/80 p-2.5 rounded-xl border border-parchment-border/60 mb-3">
+                <div class="${isFull ? '' : 'truncate'}"><strong class="text-crimson-dnd">Tempo di lancio:</strong> ${escapeHtml(item.castingTime)}</div>
+                <div class="${isFull ? '' : 'truncate'}"><strong class="text-crimson-dnd">Gittata:</strong> ${escapeHtml(item.range)}</div>
+                <div class="${isFull ? '' : 'truncate'}"><strong class="text-crimson-dnd">Componenti:</strong> ${escapeHtml(item.components)}</div>
+                <div class="${isFull ? '' : 'truncate'}"><strong class="text-crimson-dnd">Durata:</strong> ${escapeHtml(item.duration)}</div>
+              </div>
+
+              <!-- Descrizione: 100% visibile in Vista Completa, 3 righe in Vista Compatta -->
+              ${isFull ? `
+                <div class="text-xs sm:text-sm text-ink-dnd leading-relaxed">
+                  ${formatRichParagraphs(item.description)}
+                </div>
+                ${item.higherLevels ? `
+                  <div class="mt-3 p-2.5 rounded-xl dnd-callout-sage text-xs sm:text-sm text-ink-dnd leading-relaxed">
+                    ${formatRichParagraphs(item.higherLevels)}
+                  </div>
+                ` : ''}
+              ` : `
+                <p class="text-xs sm:text-sm text-ink-dnd line-clamp-3 leading-relaxed">
+                  ${enrichWithDice(item.description)}
+                </p>
+              `}
+
+              ${isBael ? `
+                <div class="mt-3 p-2.5 rounded-xl bg-[#F3EAD3] border border-parchment-border flex items-center justify-between font-ui text-xs" data-stop-card="1">
+                  <span class="font-semibold text-crimson-dnd">Marchio di Bael (1/RL):</span>
+                  <button type="button" data-action="bael-toggle" class="px-2.5 py-1 rounded-lg font-bold border transition ${
+                    trackers.baelFreeUsed
+                      ? 'bg-crimson-soft text-crimson-dnd border-crimson-border'
+                      : 'bg-sage-dnd text-sage-dark border-sage-border'
+                  }">
+                    ${trackers.baelFreeUsed ? 'Usato' : 'Gratuito Pronto'}
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="mt-4 pt-2.5 border-t border-parchment-border/60 flex flex-wrap items-center justify-between gap-2">
+              ${renderCardImageActions(item)}
+              <button
+                type="button"
+                data-action="open-detail"
+                data-id="${item.id}"
+                class="font-ui text-xs font-semibold px-3 py-1.5 rounded-lg bg-crimson-dnd/10 hover:bg-crimson-dnd text-crimson-dnd hover:text-[#F7F1E1] border border-crimson-dnd/30 transition ml-auto"
+              >
+                Dettagli / Modifica →
+              </button>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderInvocationOrFeatCard(item) {
+        const isFull = uiPrefs.viewMode === 'full';
+        const artwork = getItemArtworkHtml(item, 'w-16 h-16 sm:w-20 sm:h-20');
+
+        return `
+          <article
+            data-action="open-detail"
+            data-id="${item.id}"
+            class="dnd-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer"
+          >
+            <div>
+              <div class="flex items-start gap-3">
+                ${artwork}
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-start justify-between gap-2">
+                    <h3 class="font-cinzel text-lg font-black text-crimson-dnd leading-snug">${escapeHtml(item.name)}</h3>
+                    ${item.isCustom ? `<span class="font-ui text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-sage-dnd text-sage-dark border border-sage-border shrink-0">Personalizzato</span>` : ''}
+                  </div>
+                  ${item.prerequisite ? `<p class="text-xs italic text-ink-muted mt-0.5">Prerequisito: ${escapeHtml(item.prerequisite)}</p>` : ''}
+                </div>
+              </div>
+
+              <div class="dnd-taper my-2.5"></div>
+
+              ${isFull ? `
+                <div class="text-xs sm:text-sm text-ink-dnd leading-relaxed">
+                  ${formatRichParagraphs(item.description)}
+                </div>
+              ` : `
+                <p class="text-xs sm:text-sm text-ink-dnd line-clamp-4 leading-relaxed">
+                  ${enrichWithDice(item.description)}
+                </p>
+              `}
+            </div>
+
+            <div class="mt-4 pt-2.5 border-t border-parchment-border/60 flex flex-wrap items-center justify-between gap-2">
+              ${renderCardImageActions(item)}
+              <button
+                type="button"
+                data-action="open-detail"
+                data-id="${item.id}"
+                class="font-ui text-xs font-semibold px-3 py-1.5 rounded-lg bg-crimson-dnd/10 hover:bg-crimson-dnd text-crimson-dnd hover:text-[#F7F1E1] border border-crimson-dnd/30 transition ml-auto"
+              >
+                Dettagli / Modifica →
+              </button>
+            </div>
+          </article>
+        `;
+      }
+
+      /* ======================================================================
+         11. RENDERING PILLOLE RAPIDE & SEZIONI PRINCIPALI
+         ====================================================================== */
+      function renderQuickNavPills() {
+        const selectedCategory = document.getElementById('categorySelect').value;
+        const pillsContainer = document.getElementById('quickNavPills');
+
+        const allPill = `
+          <button
+            type="button"
+            data-action="select-pill"
+            data-cat="all"
+            class="px-3 py-1.5 rounded-full font-semibold whitespace-nowrap border transition shrink-0 ${
+              selectedCategory === 'all'
+                ? 'bg-crimson-dnd text-[#F7F1E1] border-crimson-dnd shadow-sm'
+                : 'bg-parchment-card text-ink-dnd border-parchment-border hover:bg-parchment-dark'
+            }"
+          >
+            Tutte (${items.length})
+          </button>
+        `;
+
+        const catPills = CATEGORIES.map((cat) => {
+          const count = items.filter((i) => i.category === cat.id).length;
+          const active = selectedCategory === cat.id;
+          return `
+            <button
+              type="button"
+              data-action="select-pill"
+              data-cat="${cat.id}"
+              class="px-3 py-1.5 rounded-full font-semibold whitespace-nowrap border transition shrink-0 ${
+                active
+                  ? 'bg-crimson-dnd text-[#F7F1E1] border-crimson-dnd shadow-sm'
+                  : 'bg-parchment-card text-ink-dnd border-parchment-border hover:bg-parchment-dark'
+              }"
+            >
+              ${escapeHtml(cat.shortTitle)} (${count})
+            </button>
+          `;
+        }).join('');
+
+        pillsContainer.innerHTML = allPill + catPills;
+      }
+
+      function updateViewModeButtons() {
+        const isFull = uiPrefs.viewMode === 'full';
+        const btnFull = document.getElementById('btnViewFull');
+        const btnCompact = document.getElementById('btnViewCompact');
+
+        if (isFull) {
+          btnFull.className = 'px-3 py-2 rounded-lg font-bold transition bg-crimson-dnd text-[#F7F1E1]';
+          btnCompact.className = 'px-3 py-2 rounded-lg font-semibold transition text-ink-dnd hover:bg-parchment-dark';
+        } else {
+          btnCompact.className = 'px-3 py-2 rounded-lg font-bold transition bg-crimson-dnd text-[#F7F1E1]';
+          btnFull.className = 'px-3 py-2 rounded-lg font-semibold transition text-ink-dnd hover:bg-parchment-dark';
+        }
+      }
+
+      function matchesSearch(item, query) {
+        if (!query) return true;
+        const q = query.toLowerCase().trim();
+        // Escludiamo la stringa base64 customImage dalla ricerca testuale
+        const { customImage, ...searchableObj } = item;
+        return JSON.stringify(searchableObj).toLowerCase().includes(q);
+      }
+
+      function renderAll() {
+        const searchQuery = document.getElementById('searchInput').value;
+        const selectedCategory = document.getElementById('categorySelect').value;
+        const main = document.getElementById('mainContainer');
+        const emptyState = document.getElementById('emptySearchState');
+
+        document.getElementById('clearSearchBtn').classList.toggle('hidden', !searchQuery);
+        renderQuickNavPills();
+        updateViewModeButtons();
+
+        const filteredItems = items.filter((item) => {
+          const catMatch = selectedCategory === 'all' || item.category === catMatchId(selectedCategory);
+          return catMatch && matchesSearch(item, searchQuery);
+        });
+
+        document.getElementById('totalCountBadge').textContent = `${filteredItems.length} ${filteredItems.length === 1 ? 'Voce' : 'Voci'}`;
+
+        if (filteredItems.length === 0) {
+          main.innerHTML = '';
+          emptyState.classList.remove('hidden');
+          return;
+        }
+        emptyState.classList.add('hidden');
+
+        let html = '';
+
+        CATEGORIES.forEach((cat) => {
+          if (selectedCategory !== 'all' && selectedCategory !== cat.id) return;
+          const catItems = filteredItems.filter((i) => i.category === cat.id);
+          if (catItems.length === 0) return;
+
+          const isOpen = searchQuery.trim().length > 0 ? true : !!uiPrefs.openAccordions[cat.id];
+
+          html += `
+            <section id="section-${cat.id}" class="rounded-2xl border-2 border-parchment-border bg-[#F4ECDA]/65 shadow-sm overflow-hidden ${isOpen ? 'accordion-open' : ''}">
+              <!-- Intestazione Accordion -->
+              <button
+                type="button"
+                data-action="toggle-accordion"
+                data-cat="${cat.id}"
+                aria-expanded="${isOpen}"
+                class="w-full px-4 sm:px-5 py-3.5 bg-gradient-to-r from-[#EAE0C5] via-[#F4ECDA] to-[#EAE0C5] hover:from-[#E3D6B5] hover:to-[#E3D6B5] flex items-center justify-between gap-3 text-left transition"
+              >
+                <div class="flex items-center gap-3 min-w-0">
+                  <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-crimson-dnd text-[#F7F1E1] border border-parchment-border flex items-center justify-center shrink-0 shadow-sm font-cinzel font-black text-sm">
+                    ✦
+                  </span>
+                  <h2 class="font-cinzel text-base sm:text-xl font-black text-crimson-dnd tracking-wide truncate">
+                    ${escapeHtml(cat.title)}
+                  </h2>
+                </div>
+
+                <div class="flex items-center gap-2.5 shrink-0">
+                  <span class="font-ui text-xs font-bold px-2.5 py-1 rounded-full bg-parchment-card text-crimson-dnd border border-parchment-border">
+                    ${catItems.length}
+                  </span>
+                  <span class="accordion-chevron text-crimson-dnd p-1">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <!-- Contenuto Griglia della Categoria -->
+              <div class="${isOpen ? 'block' : 'hidden'} p-3.5 sm:p-5 border-t border-parchment-border/70">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                  ${catItems
+                    .map((item) => {
+                      if (item.category === 'creature') return renderCreatureCard(item);
+                      if (item.category === 'oggetti') return renderObjectCard(item);
+                      if (item.category === 'suppliche' || item.category === 'talenti') return renderInvocationOrFeatCard(item);
+                      return renderSpellCard(item);
+                    })
+                    .join('')}
+                </div>
+              </div>
+            </section>
+          `;
+        });
+
+        main.innerHTML = html;
+        updateToggleAllLabel();
+      }
+
+      function catMatchId(val) {
+        return val;
+      }
+
+      function updateToggleAllLabel() {
+        const anyOpen = CATEGORIES.some((c) => uiPrefs.openAccordions[c.id]);
+        document.getElementById('toggleAllLabel').textContent = anyOpen ? 'Comprimi Tutto' : 'Espandi Tutto';
+      }
+
+      /* ======================================================================
+         12. FINESTRELLA POP-UP DETTAGLIO COMPLETO
+         ====================================================================== */
+      function openDetailModal(itemId) {
+        const item = items.find((i) => i.id === itemId);
+        if (!item) return;
+
+        activeDetailItemId = itemId;
+        const catMeta = getCategoryMeta(item.category);
+
+        document.getElementById('detailModalCategoryBadge').textContent = catMeta.title + (item.isCustom ? ' • Personalizzato' : '');
+        document.getElementById('detailModalTitle').textContent = item.name;
+        document.getElementById('detailModalSubtitle').textContent =
+          item.subtitle || item.levelSchool || (item.prerequisite ? `Prerequisito: ${item.prerequisite}` : '');
+
+        const body = document.getElementById('detailModalBody');
+        const largeArtwork = getItemArtworkHtml(item, 'w-44 h-44 sm:w-52 sm:h-52 mx-auto');
+
+        if (item.category === 'creature') {
+          const statsEntries = [
+            ['FOR', item.stats?.for || '10 (+0)'],
+            ['DES', item.stats?.des || '10 (+0)'],
+            ['COS', item.stats?.cos || '10 (+0)'],
+            ['INT', item.stats?.int || '10 (+0)'],
+            ['SAG', item.stats?.sag || '10 (+0)'],
+            ['CAR', item.stats?.car || '10 (+0)']
+          ];
+
+          body.innerHTML = `
+            ${largeArtwork ? `<div class="flex flex-col items-center gap-2">${largeArtwork}${renderCardImageActions(item)}</div>` : ''}
+            ${renderCreatureInteractiveBar(item)}
+
+            <div class="dnd-taper"></div>
+
+            <div class="space-y-1 text-sm">
+              <p><strong class="text-crimson-dnd">Classe Armatura:</strong> ${enrichWithDice(item.ac)}</p>
+              <p><strong class="text-crimson-dnd">Punti Ferita:</strong> ${escapeHtml(String(item.hpMax))}</p>
+              <p><strong class="text-crimson-dnd">Velocità:</strong> ${escapeHtml(item.speed)}</p>
+            </div>
+
+            <div class="dnd-taper"></div>
+
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
+              ${statsEntries.map(([lbl, val]) => `
+                <div class="py-2 px-1 rounded-xl bg-[#F3EAD3] border border-parchment-border">
+                  <div class="font-cinzel text-xs font-black text-crimson-dnd">${lbl}</div>
+                  <div class="font-ui text-sm font-bold text-ink-dnd mt-0.5">${escapeHtml(val)}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="dnd-taper"></div>
+
+            <div class="space-y-1.5 text-sm">
+              ${item.savingThrows ? `<p><strong class="text-crimson-dnd">Tiri Salvezza:</strong> ${enrichWithDice(item.savingThrows)}</p>` : ''}
+              ${item.skills ? `<p><strong class="text-crimson-dnd">Abilità:</strong> ${enrichWithDice(item.skills)}</p>` : ''}
+              ${item.resistances ? `<p><strong class="text-crimson-dnd">Resistenze ai Danni:</strong> ${escapeHtml(item.resistances)}</p>` : ''}
+              ${item.immunities ? `<p><strong class="text-crimson-dnd">Immunità alle Condizioni:</strong> ${escapeHtml(item.immunities)}</p>` : ''}
+              ${item.senses ? `<p><strong class="text-crimson-dnd">Sensi:</strong> ${escapeHtml(item.senses)}</p>` : ''}
+              ${item.languages ? `<p><strong class="text-crimson-dnd">Linguaggi:</strong> ${escapeHtml(item.languages)}</p>` : ''}
+            </div>
+
+            ${(item.traits && item.traits.length > 0) ? `
+              <div class="dnd-taper"></div>
+              <div class="space-y-2.5">
+                ${item.traits.map((t) => `
+                  <p><strong class="italic text-crimson-dnd">${escapeHtml(t.name)}.</strong> ${enrichWithDice(t.desc)}</p>
+                `).join('')}
+              </div>
+            ` : ''}
+
+            ${(item.actions && item.actions.length > 0) ? `
+              <div class="pt-2">
+                <h4 class="font-cinzel text-lg font-black text-crimson-dnd border-b border-crimson-dnd/40 pb-1 mb-2.5">Azioni</h4>
+                <div class="space-y-2.5">
+                  ${item.actions.map((a) => `
+                    <p><strong class="italic text-crimson-dnd">${escapeHtml(a.name)}.</strong> ${enrichWithDice(a.desc)}</p>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            ${(item.bonusActions && item.bonusActions.length > 0) ? `
+              <div class="pt-2">
+                <h4 class="font-cinzel text-lg font-black text-crimson-dnd border-b border-crimson-dnd/40 pb-1 mb-2.5">Azioni Bonus</h4>
+                <div class="space-y-2.5">
+                  ${item.bonusActions.map((ba) => `
+                    <p><strong class="italic text-crimson-dnd">${escapeHtml(ba.name)}.</strong> ${enrichWithDice(ba.desc)}</p>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            ${(item.reactions && item.reactions.length > 0) ? `
+              <div class="pt-2">
+                <h4 class="font-cinzel text-lg font-black text-crimson-dnd border-b border-crimson-dnd/40 pb-1 mb-2.5">Reazioni</h4>
+                <div class="space-y-2.5">
+                  ${item.reactions.map((r) => `
+                    <p><strong class="italic text-crimson-dnd">${escapeHtml(r.name)}.</strong> ${enrichWithDice(r.desc)}</p>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          `;
+        } else if (item.category === 'oggetti') {
+          body.innerHTML = `
+            ${largeArtwork ? `<div class="flex flex-col items-center gap-2">${largeArtwork}${renderCardImageActions(item)}</div>` : ''}
+            ${renderItemTracker(item)}
+
+            <div>
+              <h4 class="font-cinzel text-base sm:text-lg font-black text-crimson-dnd border-b border-crimson-dnd/35 pb-1 mb-3">Poteri &amp; Proprietà</h4>
+              <div class="space-y-3">
+                ${(item.powers || []).map((p) => `
+                  <div class="p-3 rounded-xl bg-[#F7F1E1]/85 border border-parchment-border/70">
+                    <h5 class="font-cinzel font-bold text-crimson-dnd text-sm sm:text-base mb-1">✦ ${escapeHtml(p.name)}</h5>
+                    <div class="text-sm text-ink-dnd leading-relaxed">${formatRichParagraphs(p.desc)}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            ${(item.malus && item.malus.length > 0) ? `
+              <div class="pt-2">
+                <h4 class="font-cinzel text-base sm:text-lg font-black text-crimson-dnd border-b border-crimson-dnd/35 pb-1 mb-3">Malus &amp; Effetti Collaterali</h4>
+                <div class="space-y-3">
+                  ${item.malus.map((m) => `
+                    <div class="p-3.5 rounded-xl dnd-callout-malus">
+                      <h5 class="font-cinzel font-bold text-crimson-dnd text-sm sm:text-base mb-1">⚠️ ${escapeHtml(m.name)}</h5>
+                      <div class="text-sm text-ink-dnd leading-relaxed">${formatRichParagraphs(m.desc)}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            ${item.synergy ? `
+              <div class="p-4 rounded-xl dnd-callout-sage">
+                <h5 class="font-cinzel font-bold text-sage-dark text-sm sm:text-base mb-1">✧ Sinergia Set Leggendario</h5>
+                <div class="text-sm text-ink-dnd leading-relaxed">${formatRichParagraphs(item.synergy)}</div>
+              </div>
+            ` : ''}
+          `;
+        } else if (item.category === 'suppliche' || item.category === 'talenti') {
+          body.innerHTML = `
+            ${largeArtwork ? `<div class="flex flex-col items-center gap-2">${largeArtwork}${renderCardImageActions(item)}</div>` : ''}
+            ${item.prerequisite ? `
+              <div class="px-3.5 py-2 rounded-xl bg-[#F3EAD3] border border-parchment-border text-xs sm:text-sm italic text-ink-dnd">
+                <strong class="not-italic text-crimson-dnd">Prerequisito:</strong> ${escapeHtml(item.prerequisite)}
+              </div>
+            ` : ''}
+            <div class="dnd-taper"></div>
+            <div class="text-sm sm:text-base text-ink-dnd leading-relaxed">
+              ${formatRichParagraphs(item.description)}
+            </div>
+          `;
+        } else {
+          const isBael = item.id === 'ritorsione-infernale-bael';
+          body.innerHTML = `
+            ${largeArtwork ? `<div class="flex flex-col items-center gap-2">${largeArtwork}${renderCardImageActions(item)}</div>` : ''}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-3.5 rounded-xl bg-[#F3EAD3] border border-parchment-border text-xs sm:text-sm">
+              <div><strong class="text-crimson-dnd">Tempo di lancio:</strong> ${escapeHtml(item.castingTime || '-')}</div>
+              <div><strong class="text-crimson-dnd">Gittata:</strong> ${escapeHtml(item.range || '-')}</div>
+              <div><strong class="text-crimson-dnd">Componenti:</strong> ${escapeHtml(item.components || '-')}</div>
+              <div><strong class="text-crimson-dnd">Durata:</strong> ${escapeHtml(item.duration || '-')}</div>
+            </div>
+
+            <div class="dnd-taper"></div>
+
+            <div class="text-sm sm:text-base text-ink-dnd leading-relaxed">
+              ${formatRichParagraphs(item.description)}
+            </div>
+
+            ${item.higherLevels ? `
+              <div class="p-4 rounded-xl dnd-callout-sage text-sm text-ink-dnd leading-relaxed">
+                ${formatRichParagraphs(item.higherLevels)}
+              </div>
+            ` : ''}
+
+            ${isBael ? `
+              <div class="p-3.5 rounded-xl bg-[#F3EAD3] border border-parchment-border flex items-center justify-between font-ui text-xs sm:text-sm">
+                <span class="font-bold text-crimson-dnd">Lancio Gratuito Marchio di Bael (1/Riposo Lungo):</span>
+                <button type="button" data-action="bael-toggle" class="px-3 py-1.5 rounded-lg font-bold border transition ${
+                  trackers.baelFreeUsed
+                    ? 'bg-crimson-soft text-crimson-dnd border-crimson-border'
+                    : 'bg-sage-dnd text-sage-dark border-sage-border'
+                }">
+                  ${trackers.baelFreeUsed ? 'Già Usato' : 'Disponibile'}
+                </button>
+              </div>
+            ` : ''}
+          `;
+        }
+
+        document.getElementById('detailModalOverlay').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDetailModal() {
+        document.getElementById('detailModalOverlay').classList.add('hidden');
+        document.body.style.overflow = '';
+        activeDetailItemId = null;
+      }
+
+      /* ======================================================================
+         13. FORM DINAMICO PER AGGIUNGERE O MODIFICARE ELEMENTI
+         ====================================================================== */
+      function updateFormImagePreview(dataUrl, builtinId = null) {
+        const previewBox = document.getElementById('formImagePreviewBox');
+        const clearBtn = document.getElementById('btnFormClearImage');
+
+        if (dataUrl) {
+          previewBox.innerHTML = `<img src="${dataUrl}" alt="Anteprima" class="w-full h-full object-cover" />`;
+          clearBtn.classList.remove('hidden');
+        } else if (builtinId && BUILTIN_ARTWORKS[builtinId]) {
+          previewBox.innerHTML = BUILTIN_ARTWORKS[builtinId];
+          clearBtn.classList.add('hidden');
+        } else {
+          previewBox.innerHTML = `<span class="text-[10px] text-ink-muted">Nessuna</span>`;
+          clearBtn.classList.add('hidden');
+        }
+      }
+
+      function createDynamicRowHtml(groupName, titlePlaceholder, descPlaceholder, titleVal = '', descVal = '') {
+        return `
+          <div class="dynamic-entry p-3 rounded-xl bg-[#F7F1E1] border border-parchment-border space-y-2 relative" data-group="${groupName}">
+            <div class="flex items-center justify-between gap-2">
+              <input
+                type="text"
+                class="entry-title w-full px-3 py-2 rounded-lg bg-parchment-card border border-parchment-border text-ink-dnd font-semibold text-xs sm:text-sm"
+                placeholder="${escapeHtml(titlePlaceholder)}"
+                value="${escapeHtml(titleVal)}"
+              />
+              <button
+                type="button"
+                data-action="remove-entry"
+                class="px-2.5 py-2 rounded-lg bg-crimson-soft text-crimson-dnd hover:bg-[#ebd3cd] border border-crimson-border text-xs font-bold shrink-0"
+                title="Rimuovi voce"
+              >
+                ✕
+              </button>
+            </div>
+            <textarea
+              rows="2"
+              class="entry-desc w-full px-3 py-2 rounded-lg bg-parchment-card border border-parchment-border text-ink-dnd text-xs sm:text-sm"
+              placeholder="${escapeHtml(descPlaceholder)}"
+            >${escapeHtml(descVal)}</textarea>
+          </div>
+        `;
+      }
+
+      function renderDynamicFormFields(category, existingItem = null) {
+        const container = document.getElementById('dynamicFormFields');
+
+        if (category === 'creature') {
+          const st = existingItem?.stats || { for: '10 (+0)', des: '10 (+0)', cos: '10 (+0)', int: '10 (+0)', sag: '10 (+0)', car: '10 (+0)' };
+          const traits = existingItem?.traits || [];
+          const actions = existingItem?.actions || [{ name: '', desc: '' }];
+          const bonusActions = existingItem?.bonusActions || [];
+          const reactions = existingItem?.reactions || [];
+
+          container.innerHTML = `
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Nome Creatura / Famiglio *</label>
+                <input id="f_name" type="text" required value="${escapeHtml(existingItem?.name || '')}" placeholder="es. Corvo Spettrale" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Tipo, Taglia &amp; Allineamento</label>
+                <input id="f_subtitle" type="text" value="${escapeHtml(existingItem?.subtitle || '')}" placeholder="es. Folletto • Minuscolo, Neutrale" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Classe Armatura (CA)</label>
+                <input id="f_ac" type="text" value="${escapeHtml(existingItem?.ac || '12')}" placeholder="es. 14 (Armatura naturale)" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Punti Ferita Max (PF)</label>
+                <input id="f_hpMax" type="number" min="1" value="${escapeHtml(String(existingItem?.hpMax || 15))}" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Velocità</label>
+                <input id="f_speed" type="text" value="${escapeHtml(existingItem?.speed || '9 m')}" placeholder="es. 9 m, volare 18 m" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-crimson-dnd mb-1">Punteggi di Caratteristica</label>
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                <div><span class="text-[11px] font-bold text-ink-muted">FOR</span><input id="f_for" type="text" value="${escapeHtml(st.for)}" class="w-full px-2 py-1.5 rounded-lg bg-[#FCF9F2] border border-parchment-border text-xs" /></div>
+                <div><span class="text-[11px] font-bold text-ink-muted">DES</span><input id="f_des" type="text" value="${escapeHtml(st.des)}" class="w-full px-2 py-1.5 rounded-lg bg-[#FCF9F2] border border-parchment-border text-xs" /></div>
+                <div><span class="text-[11px] font-bold text-ink-muted">COS</span><input id="f_cos" type="text" value="${escapeHtml(st.cos)}" class="w-full px-2 py-1.5 rounded-lg bg-[#FCF9F2] border border-parchment-border text-xs" /></div>
+                <div><span class="text-[11px] font-bold text-ink-muted">INT</span><input id="f_int" type="text" value="${escapeHtml(st.int)}" class="w-full px-2 py-1.5 rounded-lg bg-[#FCF9F2] border border-parchment-border text-xs" /></div>
+                <div><span class="text-[11px] font-bold text-ink-muted">SAG</span><input id="f_sag" type="text" value="${escapeHtml(st.sag)}" class="w-full px-2 py-1.5 rounded-lg bg-[#FCF9F2] border border-parchment-border text-xs" /></div>
+                <div><span class="text-[11px] font-bold text-ink-muted">CAR</span><input id="f_car" type="text" value="${escapeHtml(st.car)}" class="w-full px-2 py-1.5 rounded-lg bg-[#FCF9F2] border border-parchment-border text-xs" /></div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Tiri Salvezza</label>
+                <input id="f_savingThrows" type="text" value="${escapeHtml(existingItem?.savingThrows || '')}" placeholder="es. Des +4, Sag +2" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Abilità</label>
+                <input id="f_skills" type="text" value="${escapeHtml(existingItem?.skills || '')}" placeholder="es. Furtività +5, Percezione +3" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Resistenze ai Danni</label>
+                <input id="f_resistances" type="text" value="${escapeHtml(existingItem?.resistances || '')}" placeholder="es. Necrotico, Veleno" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Immunità alle Condizioni</label>
+                <input id="f_immunities" type="text" value="${escapeHtml(existingItem?.immunities || '')}" placeholder="es. Avvelenato, Spaventato" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Sensi</label>
+                <input id="f_senses" type="text" value="${escapeHtml(existingItem?.senses || '')}" placeholder="es. Scurovisione 18 m, Percezione Passiva 12" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Linguaggi</label>
+                <input id="f_languages" type="text" value="${escapeHtml(existingItem?.languages || '')}" placeholder="es. Comprende i linguaggi del padrone" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="font-semibold text-crimson-dnd">Tratti Passivi</label>
+                <button type="button" data-action="add-entry" data-group="traits" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sage-dnd text-sage-dark border border-sage-border">+ Aggiungi Tratto</button>
+              </div>
+              <div id="group_traits" class="space-y-2">
+                ${traits.map((t) => createDynamicRowHtml('traits', 'Nome Tratto', 'Descrizione del tratto...', t.name, t.desc)).join('')}
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="font-semibold text-crimson-dnd">Azioni</label>
+                <button type="button" data-action="add-entry" data-group="actions" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sage-dnd text-sage-dark border border-sage-border">+ Aggiungi Azione</button>
+              </div>
+              <div id="group_actions" class="space-y-2">
+                ${actions.map((a) => createDynamicRowHtml('actions', 'Nome Azione', 'Dettagli attacco o effetto...', a.name, a.desc)).join('')}
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="font-semibold text-crimson-dnd">Azioni Bonus</label>
+                <button type="button" data-action="add-entry" data-group="bonusActions" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sage-dnd text-sage-dark border border-sage-border">+ Aggiungi Azione Bonus</button>
+              </div>
+              <div id="group_bonusActions" class="space-y-2">
+                ${bonusActions.map((ba) => createDynamicRowHtml('bonusActions', 'Nome Azione Bonus', 'Descrizione azione bonus...', ba.name, ba.desc)).join('')}
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="font-semibold text-crimson-dnd">Reazioni</label>
+                <button type="button" data-action="add-entry" data-group="reactions" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sage-dnd text-sage-dark border border-sage-border">+ Aggiungi Reazione</button>
+              </div>
+              <div id="group_reactions" class="space-y-2">
+                ${reactions.map((r) => createDynamicRowHtml('reactions', 'Nome Reazione', 'Condizione e effetto della reazione...', r.name, r.desc)).join('')}
+              </div>
+            </div>
+          `;
+        } else if (category === 'oggetti') {
+          const powers = existingItem?.powers || [{ name: '', desc: '' }];
+          const malus = existingItem?.malus || [];
+          const hasTracker = Boolean(existingItem?.trackerConfig);
+
+          container.innerHTML = `
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Nome Oggetto Magico *</label>
+                <input id="f_name" type="text" required value="${escapeHtml(existingItem?.name || '')}" placeholder="es. Anello del Patto Astrale" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Tipologia / Rarità</label>
+                <input id="f_subtitle" type="text" value="${escapeHtml(existingItem?.subtitle || '')}" placeholder="es. Anello • Molto Raro (richiede sintonia)" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="font-semibold text-crimson-dnd">Poteri / Proprietà *</label>
+                <button type="button" data-action="add-entry" data-group="powers" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sage-dnd text-sage-dark border border-sage-border">+ Aggiungi Potere</button>
+              </div>
+              <div id="group_powers" class="space-y-2">
+                ${powers.map((p) => createDynamicRowHtml('powers', 'Nome Potere', 'Descrizione completa del potere...', p.name, p.desc)).join('')}
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="font-semibold text-crimson-dnd">Malus / Effetti Collaterali (Opzionale)</label>
+                <button type="button" data-action="add-entry" data-group="malus" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-crimson-soft text-crimson-dnd border border-crimson-border">+ Aggiungi Malus</button>
+              </div>
+              <div id="group_malus" class="space-y-2">
+                ${malus.map((m) => createDynamicRowHtml('malus', 'Nome Malus', 'Descrizione del malus o effetto collaterale...', m.name, m.desc)).join('')}
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-crimson-dnd mb-1">Note / Bonus Sinergia Set (Opzionale)</label>
+              <textarea id="f_synergy" rows="2" placeholder="Eventuale bonus di sinergia con altri oggetti..." class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border">${escapeHtml(existingItem?.synergy || '')}</textarea>
+            </div>
+
+            <div class="p-3 rounded-xl bg-[#F3EAD3] border border-parchment-border space-y-2">
+              <label class="flex items-center gap-2 font-semibold text-crimson-dnd cursor-pointer">
+                <input id="f_enableTracker" type="checkbox" ${hasTracker ? 'checked' : ''} class="rounded text-crimson-dnd" />
+                <span>Includi contatore cariche / usi rapidi sulla scheda</span>
+              </label>
+              <div id="trackerConfigInputs" class="${hasTracker ? 'grid' : 'hidden'} grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                <div>
+                  <label class="block text-xs font-semibold text-ink-muted mb-1">Etichetta Contatore</label>
+                  <input id="f_trackerLabel" type="text" value="${escapeHtml(existingItem?.trackerConfig?.label || 'Cariche / Usi')}" class="w-full px-2.5 py-1.5 rounded-lg bg-parchment-card border border-parchment-border text-xs" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-ink-muted mb-1">Massimo Cariche / Usi</label>
+                  <input id="f_trackerMax" type="number" min="1" max="20" value="${escapeHtml(String(existingItem?.trackerConfig?.max || 3))}" class="w-full px-2.5 py-1.5 rounded-lg bg-parchment-card border border-parchment-border text-xs" />
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (category === 'suppliche' || category === 'talenti') {
+          container.innerHTML = `
+            <div>
+              <label class="block font-semibold text-crimson-dnd mb-1">Nome *</label>
+              <input id="f_name" type="text" required value="${escapeHtml(existingItem?.name || '')}" placeholder="${category === 'suppliche' ? 'es. Vista del Diavolo' : 'es. Incantatore da Guerra'}" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+            </div>
+            <div>
+              <label class="block font-semibold text-crimson-dnd mb-1">Prerequisito (Opzionale)</label>
+              <input id="f_prerequisite" type="text" value="${escapeHtml(existingItem?.prerequisite || '')}" placeholder="es. Warlock di 5° livello o superiore" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+            </div>
+            <div>
+              <label class="block font-semibold text-crimson-dnd mb-1">Descrizione / Benefici *</label>
+              <textarea id="f_description" rows="5" required placeholder="Descrivi gli effetti e i benefici..." class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border">${escapeHtml(existingItem?.description || '')}</textarea>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Nome Incantesimo / Trucchetto *</label>
+                <input id="f_name" type="text" required value="${escapeHtml(existingItem?.name || '')}" placeholder="es. Passo Velato" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Livello e Scuola / Classe *</label>
+                <input id="f_levelSchool" type="text" required value="${escapeHtml(existingItem?.levelSchool || '')}" placeholder="es. Evocazione di 2° livello (warlock)" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Tempo di lancio</label>
+                <input id="f_castingTime" type="text" value="${escapeHtml(existingItem?.castingTime || 'azione')}" placeholder="es. azione / azione bonus / reazione" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Gittata</label>
+                <input id="f_range" type="text" value="${escapeHtml(existingItem?.range || '18 metri')}" placeholder="es. 18 metri / contatto / incantatore" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Componenti</label>
+                <input id="f_components" type="text" value="${escapeHtml(existingItem?.components || 'V, S')}" placeholder="es. V, S, M (...)" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+              <div>
+                <label class="block font-semibold text-crimson-dnd mb-1">Durata</label>
+                <input id="f_duration" type="text" value="${escapeHtml(existingItem?.duration || 'istantanea')}" placeholder="es. concentrazione, fino a 1 minuto" class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-crimson-dnd mb-1">Descrizione Completa *</label>
+              <textarea id="f_description" rows="5" required placeholder="Inserisci il testo completo dell'incantesimo..." class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border">${escapeHtml(existingItem?.description || '')}</textarea>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-crimson-dnd mb-1">Potenziamento / Slot di Livello Superiore (Opzionale)</label>
+              <textarea id="f_higherLevels" rows="2" placeholder="es. Utilizzo di uno slot incantesimo di livello superiore: ..." class="w-full px-3 py-2 rounded-xl bg-[#FCF9F2] border border-parchment-border">${escapeHtml(existingItem?.higherLevels || '')}</textarea>
+            </div>
+          `;
+        }
+      }
+
+      function openFormModal(editItem = null) {
+        const titleEl = document.getElementById('formModalTitle');
+        const editIdEl = document.getElementById('editItemId');
+        const catSelect = document.getElementById('formCategory');
+        const imgInput = document.getElementById('formCustomImageData');
+
+        if (editItem) {
+          titleEl.textContent = `Modifica: ${editItem.name}`;
+          editIdEl.value = editItem.id;
+          catSelect.value = editItem.category;
+          imgInput.value = editItem.customImage || '';
+          updateFormImagePreview(editItem.customImage || '', editItem.id);
+          renderDynamicFormFields(editItem.category, editItem);
+        } else {
+          titleEl.textContent = 'Aggiungi Nuovo Elemento';
+          editIdEl.value = '';
+          imgInput.value = '';
+          updateFormImagePreview('', null);
+          const currentFilter = document.getElementById('categorySelect').value;
+          const initialCat = currentFilter !== 'all' ? currentFilter : 'incantesimi';
+          catSelect.value = initialCat;
+          renderDynamicFormFields(initialCat, null);
+        }
+
+        document.getElementById('formModalOverlay').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeFormModal() {
+        document.getElementById('formModalOverlay').classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      function collectGroupEntries(groupName) {
+        const groupEl = document.getElementById(`group_${groupName}`);
+        if (!groupEl) return [];
+        const entries = [];
+        groupEl.querySelectorAll('.dynamic-entry').forEach((row) => {
+          const name = row.querySelector('.entry-title').value.trim();
+          const desc = row.querySelector('.entry-desc').value.trim();
+          if (name || desc) {
+            entries.push({ name: name || 'Effetto', desc });
+          }
+        });
+        return entries;
+      }
+
+      document.getElementById('itemForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const category = document.getElementById('formCategory').value;
+        const editId = document.getElementById('editItemId').value;
+        const name = document.getElementById('f_name').value.trim();
+        const customImage = document.getElementById('formCustomImageData').value || null;
+
+        if (!name) {
+          showToast('Inserisci un nome valido.', 'error');
+          return;
+        }
+
+        const existingIndex = editId ? items.findIndex((i) => i.id === editId) : -1;
+        const existingObj = existingIndex >= 0 ? items[existingIndex] : null;
+        const id = existingObj ? existingObj.id : `custom-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+        const isCustom = existingObj ? existingObj.isCustom : true;
+
+        let newObj = { id, category, isCustom, customImage, name };
+
+        if (category === 'creature') {
+          const hpMax = Math.max(1, parseInt(document.getElementById('f_hpMax').value, 10) || 10);
+          newObj = {
+            ...newObj,
+            subtitle: document.getElementById('f_subtitle').value.trim() || 'Creatura • Media',
+            ac: document.getElementById('f_ac').value.trim() || '12',
+            hpMax,
+            speed: document.getElementById('f_speed').value.trim() || '9 m',
+            stats: {
+              for: document.getElementById('f_for').value.trim() || '10 (+0)',
+              des: document.getElementById('f_des').value.trim() || '10 (+0)',
+              cos: document.getElementById('f_cos').value.trim() || '10 (+0)',
+              int: document.getElementById('f_int').value.trim() || '10 (+0)',
+              sag: document.getElementById('f_sag').value.trim() || '10 (+0)',
+              car: document.getElementById('f_car').value.trim() || '10 (+0)'
+            },
+            savingThrows: document.getElementById('f_savingThrows').value.trim(),
+            skills: document.getElementById('f_skills').value.trim(),
+            resistances: document.getElementById('f_resistances').value.trim(),
+            immunities: document.getElementById('f_immunities').value.trim(),
+            senses: document.getElementById('f_senses').value.trim(),
+            languages: document.getElementById('f_languages').value.trim(),
+            traits: collectGroupEntries('traits'),
+            actions: collectGroupEntries('actions'),
+            bonusActions: collectGroupEntries('bonusActions'),
+            reactions: collectGroupEntries('reactions')
+          };
+          if (!existingObj) {
+            trackers.creatureHp[id] = hpMax;
+            saveTrackers();
+          }
+        } else if (category === 'oggetti') {
+          const enableTracker = document.getElementById('f_enableTracker')?.checked;
+          let trackerConfig = null;
+          if (enableTracker) {
+            trackerConfig = {
+              ...(existingObj?.trackerConfig || {}),
+              label: document.getElementById('f_trackerLabel').value.trim() || 'Usi / Cariche',
+              max: Math.max(1, parseInt(document.getElementById('f_trackerMax').value, 10) || 3)
+            };
+          }
+          newObj = {
+            ...newObj,
+            subtitle: document.getElementById('f_subtitle').value.trim() || 'Oggetto Magico',
+            powers: collectGroupEntries('powers'),
+            malus: collectGroupEntries('malus'),
+            synergy: document.getElementById('f_synergy').value.trim(),
+            trackerConfig
+          };
+        } else if (category === 'suppliche' || category === 'talenti') {
+          newObj = {
+            ...newObj,
+            prerequisite: document.getElementById('f_prerequisite').value.trim(),
+            description: document.getElementById('f_description').value.trim()
+          };
+        } else {
+          newObj = {
+            ...newObj,
+            levelSchool: document.getElementById('f_levelSchool').value.trim(),
+            castingTime: document.getElementById('f_castingTime').value.trim() || 'azione',
+            range: document.getElementById('f_range').value.trim() || '18 metri',
+            components: document.getElementById('f_components').value.trim() || 'V, S',
+            duration: document.getElementById('f_duration').value.trim() || 'istantanea',
+            description: document.getElementById('f_description').value.trim(),
+            higherLevels: document.getElementById('f_higherLevels').value.trim()
+          };
+        }
+
+        if (existingIndex >= 0) {
+          items[existingIndex] = newObj;
+          showToast(`"${name}" aggiornato con successo!`);
+        } else {
+          items.push(newObj);
+          uiPrefs.openAccordions[category] = true;
+          saveUiPrefs();
+          showToast(`"${name}" aggiunto al Grimorio!`);
+        }
+
+        saveItems();
+        closeFormModal();
+        renderAll();
+      });
+
+      /* ======================================================================
+         14. DELEGAZIONE EVENTI UNIFICATA E PULITA (ZERO INLINE ONCLICK)
+         ====================================================================== */
+      document.addEventListener('click', (e) => {
+        // 1. Tiro di dado al volo
+        const diceBtn = e.target.closest('[data-action="roll-dice"]');
+        if (diceBtn) {
+          e.stopPropagation();
+          rollDiceExpression(diceBtn.getAttribute('data-roll'));
+          return;
+        }
+
+        // 2. Pillole di navigazione rapida
+        const pillBtn = e.target.closest('[data-action="select-pill"]');
+        if (pillBtn) {
+          const cat = pillBtn.getAttribute('data-cat');
+          document.getElementById('categorySelect').value = cat;
+          if (cat !== 'all') {
+            uiPrefs.openAccordions[cat] = true;
+            saveUiPrefs();
+          }
+          renderAll();
+          document.getElementById('mainContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+
+        // 3. Toggle Accordion Categoria
+        const accBtn = e.target.closest('[data-action="toggle-accordion"]');
+        if (accBtn) {
+          const catId = accBtn.getAttribute('data-cat');
+          uiPrefs.openAccordions[catId] = !uiPrefs.openAccordions[catId];
+          saveUiPrefs();
+          renderAll();
+          return;
+        }
+
+        // 4. Carica / Sostituisci Immagine su una scheda
+        const uploadBtn = e.target.closest('[data-action="trigger-upload"]');
+        if (uploadBtn) {
+          e.stopPropagation();
+          pendingUploadItemId = uploadBtn.getAttribute('data-id');
+          document.getElementById('cardImageInput').click();
+          return;
+        }
+
+        // 5. Ripristina Immagine predefinita
+        const resetImgBtn = e.target.closest('[data-action="reset-image"]');
+        if (resetImgBtn) {
+          e.stopPropagation();
+          const id = resetImgBtn.getAttribute('data-id');
+          const idx = items.findIndex((i) => i.id === id);
+          if (idx >= 0) {
+            items[idx].customImage = null;
+            saveItems();
+            renderAll();
+            if (activeDetailItemId === id) openDetailModal(id);
+            showToast('Illustrazione originale ripristinata.');
+          }
+          return;
+        }
+
+        // 6. Pulsanti HP Creatura
+        const hpDeltaBtn = e.target.closest('[data-action="hp-delta"]');
+        if (hpDeltaBtn) {
+          e.stopPropagation();
+          updateCreatureHp(hpDeltaBtn.getAttribute('data-id'), parseInt(hpDeltaBtn.getAttribute('data-delta'), 10), false);
+          return;
+        }
+
+        const hpResetBtn = e.target.closest('[data-action="hp-reset"]');
+        if (hpResetBtn) {
+          e.stopPropagation();
+          updateCreatureHp(hpResetBtn.getAttribute('data-id'), 0, true);
+          return;
+        }
+
+        // 7. Pulsanti Ricarica Rampicante
+        const rechBtn = e.target.closest('[data-action="recharge"]');
+        if (rechBtn) {
+          e.stopPropagation();
+          updateCreatureRecharge(rechBtn.getAttribute('data-id'), rechBtn.getAttribute('data-sub'));
+          return;
+        }
+
+        // 8. Contatori Oggetti Magici
+        const cntDeltaBtn = e.target.closest('[data-action="counter-delta"]');
+        if (cntDeltaBtn) {
+          e.stopPropagation();
+          const id = cntDeltaBtn.getAttribute('data-id');
+          const delta = parseInt(cntDeltaBtn.getAttribute('data-delta'), 10);
+          const item = items.find((i) => i.id === id);
+          const max = item?.trackerConfig?.max || 6;
+          const cur = trackers.itemCounters[id] || 0;
+          trackers.itemCounters[id] = Math.max(0, Math.min(max, cur + delta));
+          saveTrackers();
+          renderAll();
+          if (activeDetailItemId === id) openDetailModal(id);
+          return;
+        }
+
+        const cntResetBtn = e.target.closest('[data-action="counter-reset"]');
+        if (cntResetBtn) {
+          e.stopPropagation();
+          const id = cntResetBtn.getAttribute('data-id');
+          trackers.itemCounters[id] = 0;
+          saveTrackers();
+          renderAll();
+          if (activeDetailItemId === id) openDetailModal(id);
+          return;
+        }
+
+        const secToggleBtn = e.target.closest('[data-action="secondary-toggle"]');
+        if (secToggleBtn) {
+          e.stopPropagation();
+          const id = secToggleBtn.getAttribute('data-id');
+          trackers.itemSecondary[id] = !trackers.itemSecondary[id];
+          saveTrackers();
+          renderAll();
+          if (activeDetailItemId === id) openDetailModal(id);
+          return;
+        }
+
+        // 9. Toggle Marchio di Bael
+        const baelBtn = e.target.closest('[data-action="bael-toggle"]');
+        if (baelBtn) {
+          e.stopPropagation();
+          trackers.baelFreeUsed = !trackers.baelFreeUsed;
+          saveTrackers();
+          renderAll();
+          if (activeDetailItemId === 'ritorsione-infernale-bael') openDetailModal('ritorsione-infernale-bael');
+          return;
+        }
+
+        // 10. Aggiungi / Rimuovi riga dinamica nel form
+        const addEntryBtn = e.target.closest('[data-action="add-entry"]');
+        if (addEntryBtn) {
+          const groupName = addEntryBtn.getAttribute('data-group');
+          const groupEl = document.getElementById(`group_${groupName}`);
+          if (groupEl) {
+            groupEl.insertAdjacentHTML('beforeend', createDynamicRowHtml(groupName, 'Nome', 'Descrizione...'));
+          }
+          return;
+        }
+
+        const remEntryBtn = e.target.closest('[data-action="remove-entry"]');
+        if (remEntryBtn) {
+          remEntryBtn.closest('.dynamic-entry')?.remove();
+          return;
+        }
+
+        // 11. Ignora clic sulle aree interattive interne alle card
+        if (e.target.closest('[data-stop-card="1"]')) {
+          return;
+        }
+
+        // 12. Apertura Scheda Pop-up Dettaglio
+        const openCard = e.target.closest('[data-action="open-detail"]');
+        if (openCard) {
+          openDetailModal(openCard.getAttribute('data-id'));
+          return;
+        }
+
+        // 13. Chiusura dropdown Dati se clic esterno
+        const dataMenu = document.getElementById('dataDropdown');
+        const btnDataMenu = document.getElementById('btnDataMenu');
+        if (!dataMenu.classList.contains('hidden') && !dataMenu.contains(e.target) && !btnDataMenu.contains(e.target)) {
+          dataMenu.classList.add('hidden');
+        }
+      });
+
+      // Pulsanti selezione immagine nel Form Modal
+      document.getElementById('btnFormPickImage').addEventListener('click', () => {
+        pendingUploadItemId = '__FORM__';
+        document.getElementById('cardImageInput').click();
+      });
+
+      document.getElementById('btnFormClearImage').addEventListener('click', () => {
+        document.getElementById('formCustomImageData').value = '';
+        const editId = document.getElementById('editItemId').value;
+        updateFormImagePreview('', editId || null);
+      });
+
+      // Pulsante Carica Immagine dentro la Modale Dettaglio
+      document.getElementById('modalUploadImgBtn').addEventListener('click', () => {
+        if (!activeDetailItemId) return;
+        pendingUploadItemId = activeDetailItemId;
+        document.getElementById('cardImageInput').click();
+      });
+
+      // Checkbox contatore nel form oggetti
+      document.getElementById('dynamicFormFields').addEventListener('change', (e) => {
+        if (e.target && e.target.id === 'f_enableTracker') {
+          const box = document.getElementById('trackerConfigInputs');
+          if (box) {
+            box.classList.toggle('hidden', !e.target.checked);
+            box.classList.toggle('grid', e.target.checked);
+          }
+        }
+      });
+
+      // Cambio categoria nel form dinamico
+      document.getElementById('formCategory').addEventListener('change', (e) => {
+        renderDynamicFormFields(e.target.value, null);
+      });
+
+      // Selettore Vista Completa vs Vista Compatta
+      document.getElementById('btnViewFull').addEventListener('click', () => {
+        uiPrefs.viewMode = 'full';
+        saveUiPrefs();
+        renderAll();
+      });
+
+      document.getElementById('btnViewCompact').addEventListener('click', () => {
+        uiPrefs.viewMode = 'compact';
+        saveUiPrefs();
+        renderAll();
+      });
+
+      // Ricerca & Filtro Categoria
+      document.getElementById('searchInput').addEventListener('input', renderAll);
+      document.getElementById('clearSearchBtn').addEventListener('click', () => {
+        document.getElementById('searchInput').value = '';
+        renderAll();
+      });
+      document.getElementById('categorySelect').addEventListener('change', renderAll);
+      document.getElementById('btnResetFilters').addEventListener('click', () => {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('categorySelect').value = 'all';
+        renderAll();
+      });
+
+      // Espandi / Comprimi Tutto
+      document.getElementById('btnToggleAll').addEventListener('click', () => {
+        const anyOpen = CATEGORIES.some((c) => uiPrefs.openAccordions[c.id]);
+        const targetState = !anyOpen;
+        CATEGORIES.forEach((c) => { uiPrefs.openAccordions[c.id] = targetState; });
+        saveUiPrefs();
+        renderAll();
+      });
+
+      // Pulsante + Aggiungi Nuovo
+      document.getElementById('btnAddNew').addEventListener('click', () => openFormModal(null));
+
+      // Controlli Modale Dettaglio
+      document.getElementById('closeDetailModalBtn').addEventListener('click', closeDetailModal);
+      document.getElementById('modalDoneBtn').addEventListener('click', closeDetailModal);
+      document.getElementById('detailModalOverlay').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeDetailModal();
+      });
+
+      document.getElementById('modalEditBtn').addEventListener('click', () => {
+        const item = items.find((i) => i.id === activeDetailItemId);
+        if (!item) return;
+        closeDetailModal();
+        openFormModal(item);
+      });
+
+      document.getElementById('modalDeleteBtn').addEventListener('click', () => {
+        const item = items.find((i) => i.id === activeDetailItemId);
+        if (!item) return;
+        openConfirmModal(
+          'Elimina Voce dal Grimorio',
+          `Sei sicuro di voler eliminare definitivamente "${item.name}" dal Grimorio di Otto?`,
+          () => {
+            items = items.filter((i) => i.id !== item.id);
+            saveItems();
+            closeDetailModal();
+            renderAll();
+            showToast(`"${item.name}" eliminato.`);
+          },
+          'Elimina'
+        );
+      });
+
+      // Controlli Modale Form
+      document.getElementById('closeFormModalBtn').addEventListener('click', closeFormModal);
+      document.getElementById('cancelFormBtn').addEventListener('click', closeFormModal);
+      document.getElementById('formModalOverlay').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeFormModal();
+      });
+
+      // Modale Incolla JSON
+      const pasteModal = document.getElementById('pasteJsonModalOverlay');
+      document.getElementById('btnPasteJsonModal').addEventListener('click', () => {
+        document.getElementById('dataDropdown').classList.add('hidden');
+        document.getElementById('pasteJsonTextarea').value = '';
+        pasteModal.classList.remove('hidden');
+      });
+      document.getElementById('closePasteJsonBtn').addEventListener('click', () => pasteModal.classList.add('hidden'));
+      document.getElementById('cancelPasteJsonBtn').addEventListener('click', () => pasteModal.classList.add('hidden'));
+      pasteModal.addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) pasteModal.classList.add('hidden');
+      });
+      document.getElementById('confirmPasteJsonBtn').addEventListener('click', () => {
+        const rawText = document.getElementById('pasteJsonTextarea').value.trim();
+        if (!rawText) {
+          showToast('Incolla prima un testo JSON.', 'error');
+          return;
+        }
+        importJsonPayload(rawText);
+        pasteModal.classList.add('hidden');
+      });
+
+      // Chiusura Modali e Dropdown con Tasto ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          document.getElementById('dataDropdown').classList.add('hidden');
+          if (!document.getElementById('confirmModalOverlay').classList.contains('hidden')) {
+            closeConfirmModal();
+          } else if (!pasteModal.classList.contains('hidden')) {
+            pasteModal.classList.add('hidden');
+          } else if (!document.getElementById('formModalOverlay').classList.contains('hidden')) {
+            closeFormModal();
+          } else if (!document.getElementById('detailModalOverlay').classList.contains('hidden')) {
+            closeDetailModal();
+          }
+        }
+      });
+
+      // Riposo Lungo
+      document.getElementById('btnLongRest').addEventListener('click', () => {
+        openConfirmModal(
+          'Riposo Lungo',
+          'Vuoi completare un Riposo Lungo? Ripristinerà al massimo i Punti Ferita di Zucca-Spina, ricaricherà il Rampicante e azzererà gli usi giornalieri degli oggetti e del Marchio di Bael.',
+          () => {
+            items.filter((i) => i.category === 'creature').forEach((c) => {
+              trackers.creatureHp[c.id] = parseInt(c.hpMax, 10) || 35;
+              trackers.creatureRecharge[c.id] = 0;
+            });
+            trackers.itemCounters = {};
+            trackers.itemSecondary = {};
+            trackers.baelFreeUsed = false;
+            saveTrackers();
+            renderAll();
+            showToast('Riposo Lungo completato! Risorse ripristinate.');
+          },
+          'Riposa'
+        );
+      });
+
+      // Menù Dati (Esporta / Copia Appunti / Importa / Ripristina)
+      document.getElementById('btnDataMenu').addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.getElementById('dataDropdown').classList.toggle('hidden');
+      });
+
+      function buildExportPayloadString() {
+        return JSON.stringify(
+          {
+            version: 2,
+            exportedAt: new Date().toISOString(),
+            items,
+            trackers
+          },
+          null,
+          2
+        );
+      }
+
+      document.getElementById('btnExportJson').addEventListener('click', () => {
+        document.getElementById('dataDropdown').classList.add('hidden');
+        const blob = new Blob([buildExportPayloadString()], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `grimorio_otto_${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showToast('Backup JSON scaricato!');
+      });
+
+      document.getElementById('btnCopyJson').addEventListener('click', () => {
+        document.getElementById('dataDropdown').classList.add('hidden');
+        const jsonStr = buildExportPayloadString();
+        const tempArea = document.createElement('textarea');
+        tempArea.value = jsonStr;
+        tempArea.style.position = 'fixed';
+        tempArea.style.opacity = '0';
+        document.body.appendChild(tempArea);
+        tempArea.select();
+        try {
+          document.execCommand('copy');
+          showToast('JSON copiato negli appunti!');
+        } catch (err) {
+          showToast('Impossibile copiare negli appunti.', 'error');
+        }
+        tempArea.remove();
+      });
+
+      function importJsonPayload(rawString) {
+        try {
+          const parsed = JSON.parse(rawString);
+          const importedItems = Array.isArray(parsed) ? parsed : parsed.items;
+          if (!Array.isArray(importedItems) || importedItems.length === 0) {
+            throw new Error('Formato non valido');
+          }
+          items = importedItems;
+          if (parsed.trackers) trackers = parsed.trackers;
+          saveItems();
+          saveTrackers();
+          renderAll();
+          showToast(`Importate ${items.length} voci con successo!`);
+        } catch (err) {
+          showToast('Dati JSON non validi o danneggiati.', 'error');
+        }
+      }
+
+      document.getElementById('btnImportJson').addEventListener('click', () => {
+        document.getElementById('dataDropdown').classList.add('hidden');
+        document.getElementById('jsonFileInput').click();
+      });
+
+      document.getElementById('jsonFileInput').addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          importJsonPayload(ev.target.result);
+          e.target.value = '';
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById('btnResetAll').addEventListener('click', () => {
+        document.getElementById('dataDropdown').classList.add('hidden');
+        openConfirmModal(
+          'Ripristina Dati Originali',
+          'Attenzione: tutte le modifiche, immagini personalizzate e voci aggiunte verranno sostituite con i dati originali del Grimorio di Otto. Continuare?',
+          () => {
+            items = JSON.parse(JSON.stringify(DEFAULT_ITEMS));
+            trackers = {
+              creatureHp: { 'zucca-spina': 35 },
+              creatureRecharge: { 'zucca-spina': 0 },
+              itemCounters: {},
+              itemSecondary: {},
+              baelFreeUsed: false
+            };
+            saveItems();
+            saveTrackers();
+            renderAll();
+            showToast('Grimorio ripristinato allo stato originale.');
+          },
+          'Ripristina Tutto'
+        );
+      });
+
+      /* ======================================================================
+         15. INIZIALIZZAZIONE IMMEDIATA
+         ====================================================================== */
+      renderAll();
+    })();
+  </script>
+</body>
+</html>
